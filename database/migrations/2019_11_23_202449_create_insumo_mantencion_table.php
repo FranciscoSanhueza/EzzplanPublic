@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMantencionsTable extends Migration
+class CreateInsumoMantencionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateMantencionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mantencions', function (Blueprint $table) {
+        Schema::create('insumo_mantencion', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedInteger('mantencion_id');
+            $table->unsignedInteger('insumo_id');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateMantencionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mantencions');
+        Schema::dropIfExists('insumo_mantencion');
     }
 }

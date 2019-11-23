@@ -15,8 +15,11 @@ class CreateTrabajadorsTable extends Migration
     {
         Schema::create('trabajadors', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('run', 12);
             $table->string('nombre');
-            $table->text('funcion');
+            $table->string('apellido');
+            $table->integer('telefono');
+            $table->integer('cargo');
             $table->timestamps();
         });
     }
