@@ -18,9 +18,16 @@ class CreateMantencionsTable extends Migration
             $table->string('Nombre');
             $table->text('desc');
             $table->dateTime('fecha');
-            $table->string('responsable');
-            $table->string('Planificador');
-            $table->integer('estado');
+
+            $table->unsignedBigInteger('responsable_id'); // Relación con tipo
+            $table->foreign('responsable_id')->references('id')->on('trabajadors'); // clave foranea
+
+            $table->unsignedBigInteger('planificador_id'); // Relación con tipo
+            $table->foreign('planificador_id')->references('id')->on('users'); // clave foranea
+
+            $table->unsignedBigInteger('estado_id'); // Relación con estado
+            $table->foreign('estado_id')->references('id')->on('estados'); // clave foranea
+
             $table->timestamps();
         });
     }

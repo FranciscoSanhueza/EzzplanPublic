@@ -15,8 +15,13 @@ class CreateEquipoMantencionTable extends Migration
     {
         Schema::create('equipo_mantencion', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('mantencion_id');
-            $table->unsignedInteger('equipo_id');
+
+            $table->unsignedBigInteger('mantencion_id'); // Relación con libros
+            $table->foreign('mantencion_id')->references('id')->on('mantencions'); // clave foranea
+
+            $table->unsignedBigInteger('equipo_id'); // Relación con libros
+            $table->foreign('equipo_id')->references('id')->on('equipos'); // clave foranea
+          
             $table->timestamps();
         });
     }

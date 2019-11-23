@@ -15,8 +15,13 @@ class CreateInsumoMantencionTable extends Migration
     {
         Schema::create('insumo_mantencion', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('mantencion_id');
-            $table->unsignedInteger('insumo_id');
+
+            $table->unsignedBigInteger('mantencion_id'); // Relación con libros
+            $table->foreign('mantencion_id')->references('id')->on('mantencions'); // clave foranea
+
+            $table->unsignedBigInteger('insumo_id'); // Relación con libros
+            $table->foreign('insumo_id')->references('id')->on('insumos'); // clave foranea
+
             $table->timestamps();
         });
     }

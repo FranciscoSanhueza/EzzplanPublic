@@ -19,7 +19,8 @@ class CreateTrabajadorsTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->integer('telefono');
-            $table->integer('cargo');
+            $table->unsignedBigInteger('cargo_id'); // Relación con cargo
+            $table->foreign('cargo_id')->references('id')->on('cargos'); // clave foranea
             $table->timestamps();
         });
     }

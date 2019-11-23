@@ -18,11 +18,21 @@ class CreateEquiposTable extends Migration
             $table->string('nombre');
             $table->text('desc');
             $table->string('qr');
-            $table->integer('tipo');
-            $table->integer('departamento');
-            $table->integer('fabricante');
+
+            $table->unsignedBigInteger('tipo_id'); // Relación con tipo
+            $table->foreign('tipo_id')->references('id')->on('tipos'); // clave foranea
+          
+            $table->unsignedBigInteger('departamento_id'); // Relación con departamento
+            $table->foreign('departamento_id')->references('id')->on('departamentos'); // clave foranea
+            
+            $table->unsignedBigInteger('fabricante_id'); // Relación con fabricante
+            $table->foreign('fabricante_id')->references('id')->on('fabricantes'); // clave foranea
+            
             $table->date('fechaIngreso');
-            $table->integer('estado');
+
+            $table->unsignedBigInteger('estado_id'); // Relación con estado
+            $table->foreign('estado_id')->references('id')->on('estados'); // clave foranea
+            
             $table->timestamps();
         });
     }
