@@ -25,7 +25,7 @@ class InsumosController extends Controller
      */
     public function create()
     {
-        //
+        return view('insumos.insert');
     }
 
     /**
@@ -36,7 +36,22 @@ class InsumosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nombre = $request->input("txt_nombre");
+        $desc = $request->input("txt_descripcion"); 
+        if(trim($nombre) != "" & trim($desc) != ""){
+            $insumo = new Insumo();
+            $insumo->nombre = $request->input("txt_nombre"); 
+            $insumo->desc = $request->input("txt_descripcion"); 
+            $insumo->save();
+            $msgInsert = "Ingresado Correctamente";
+            return  view('insumos.list' , compact('msgInsert'));
+        }else{
+            $msgInsert = "Error no se permiten campos vacios";
+            return  view('insumos.insert' , compact('msgInsert'));
+        }
+        
+
+       
     }
 
     /**

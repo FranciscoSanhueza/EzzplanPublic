@@ -1,6 +1,13 @@
 @extends('layouts.app')
+@section('title', 'Control Insumos')
 @section('content')
-
+<div class="row">
+    <div class="col-8"></div>
+    <div class="col-3">
+        <a class="btn btn-success" href="Insumos/create" role="button">+</a>
+    </div>
+</div>
+<br/>
 <table class="table">
   <thead>
     <tr>
