@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class InsumosController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }   
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class InsumosController extends Controller
      */
     public function index()
     {
-        $insumos = Insumo::all();
+        $user = auth()->user()->id;
+        $insumos = Insumo::where('usuario_id', $user);
         return  view('insumos.list' , compact('insumos'));
     }
 
