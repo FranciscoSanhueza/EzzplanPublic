@@ -43,6 +43,10 @@ class User extends Authenticatable
         return $this->belongsTo(Tipo::class); //tiene un tipo.
     }
 
+    public function estado(){ //Relacion Equipo-> tipo
+        return $this->belongsTo(Estado::class); //tiene un tipo.
+    }
+
 
     //relacion muchos a muchos
 

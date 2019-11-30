@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Departamento extends Model
 {
-    //
+    //relacion uno a muchos
+    public function estado(){ //Relacion Equipo-> tipo
+        return $this->belongsTo(Estado::class); //tiene un tipo.
+    }
 }
