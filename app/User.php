@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'run','name','apellido', 'email', 'password','tipo_id','estado_id'
     ];
 
     /**
@@ -51,19 +51,19 @@ class User extends Authenticatable
     //relacion muchos a muchos
 
     public function fases(){
-        return $this->belongsToMany(Fase::class); // Muchos a muchos
+        return $this->belongsToMany(Fase::class)->withTimestamps();; // Muchos a muchos
     }
 
     public function cargos(){
-        return $this->belongsToMany(Cargo::class); // Muchos a muchos
+        return $this->belongsToMany(Cargo::class)->withTimestamps();; // Muchos a muchos
     }
 
     public function insumos(){
-        return $this->belongsToMany(Insumo::class); // Muchos a muchos
+        return $this->belongsToMany(Insumo::class)->withTimestamps();; // Muchos a muchos
     }
 
     public function trabajadores(){
-        return $this->belongsToMany(Trabajador::class); // Muchos a muchos
+        return $this->belongsToMany(Trabajador::class)->withTimestamps();; // Muchos a muchos
     }
 
 }

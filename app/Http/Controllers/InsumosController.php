@@ -19,8 +19,7 @@ class InsumosController extends Controller
      */
     public function index()
     {
-        $user = auth()->user()->id;
-        $insumos = Insumo::where('usuario_id', $user);
+        $insumos = auth()->user()->insumos;
         return  view('insumos.list' , compact('insumos'));
     }
 
@@ -45,12 +44,23 @@ class InsumosController extends Controller
         $nombre = $request->input("txt_nombre");
         $desc = $request->input("txt_descripcion"); 
         if(trim($nombre) != "" & trim($desc) != ""){
-            $insumo = new Insumo();
-            $insumo->nombre = $request->input("txt_nombre"); 
-            $insumo->desc = $request->input("txt_descripcion"); 
-            $insumo->save();
-            $msgInsert = "Ingresado Correctamente";
-            return  view('insumos.list' , compact('msgInsert'));
+            $validar = Insumo::where('nombre' , 'hola')->doesntExist();
+            if($validar){
+                $insumo = new Insumo();
+                $insumo->nombre = $request->input("txt_nombre"); 
+                $insumo->desc = $request->input("txt_descripcion");
+                $insumo->estado_id = 1; 
+                $insumo->save();
+                $relacion = Insumo::where('nombre', $nombre)->first();
+                auth()->user()->insumos()->attach($relacion->id);
+                $msgInsert = "Ingresado Correctamente";
+                return  view('insumos.insert' , compact('msgInsert'));
+            }else{
+                $relacion = Insumo::where('nombre', $nombre)->first();
+                auth()->user()->insumos()->attach($relacion->id);
+                $msgInsert = "Ingresado Correctamente";
+                return  view('insumos.insert' , compact('msgInsert'));    
+            }
         }else{
             $msgInsert = "Error no se permiten campos vacios";
             return  view('insumos.insert' , compact('msgInsert'));

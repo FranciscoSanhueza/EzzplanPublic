@@ -13,11 +13,11 @@ class CreateCargoUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('cargo_usuario', function (Blueprint $table) {
+        Schema::create('cargo_user', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('usuario_id'); // Relación con users
-            $table->foreign('usuario_id')->references('id')->on('users'); // clave foranea
+            $table->unsignedBigInteger('user_id'); // Relación con users
+            $table->foreign('user_id')->references('id')->on('users'); // clave foranea
 
             $table->unsignedBigInteger('cargo_id'); // Relación con cargos
             $table->foreign('cargo_id')->references('id')->on('cargos'); // clave foranea

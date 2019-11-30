@@ -13,11 +13,11 @@ class CreateFaseUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('fase_usuario', function (Blueprint $table) {
+        Schema::create('fase_user', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('usuario_id'); // Relación con users
-            $table->foreign('usuario_id')->references('id')->on('users'); // clave foranea
+            $table->unsignedBigInteger('user_id'); // Relación con users
+            $table->foreign('user_id')->references('id')->on('users'); // clave foranea
 
             $table->unsignedBigInteger('fase_id'); // Relación con fases
             $table->foreign('fase_id')->references('id')->on('fases'); // clave foranea

@@ -13,11 +13,11 @@ class CreateInsumoUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('insumo_usuario', function (Blueprint $table) {
+        Schema::create('insumo_user', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('usuario_id'); // Relación con users
-            $table->foreign('usuario_id')->references('id')->on('users'); // clave foranea
+            $table->unsignedBigInteger('user_id'); // Relación con users
+            $table->foreign('user_id')->references('id')->on('users'); // clave foranea
 
             $table->unsignedBigInteger('insumo_id'); // Relación con insumos
             $table->foreign('insumo_id')->references('id')->on('insumos'); // clave foranea

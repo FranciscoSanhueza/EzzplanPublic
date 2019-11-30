@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use App\Estado;
 use App\Tipo;
 use App\User;
@@ -47,7 +48,7 @@ class startTableSeeder extends Seeder
         $user->name = "Francisco";
         $user->apellido = "Sanhueza";
         $user->email = "can@ezzplan.com";
-        $user->password = "12345678";
+        $user->password = Hash::make('12345678');
         $user->tipo_id = 1;
         $user->estado_id = 1;
         $user->save();
