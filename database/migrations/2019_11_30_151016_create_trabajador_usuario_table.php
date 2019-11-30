@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMantencionTrabajadorTable extends Migration
+class CreateTrabajadorUsuarioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateMantencionTrabajadorTable extends Migration
      */
     public function up()
     {
-        Schema::create('mantencion_trabajador', function (Blueprint $table) {
+        Schema::create('trabajador_usuario', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('mantencion_id'); // Relación con mantencion
-            $table->foreign('mantencion_id')->references('id')->on('mantencions'); // clave foranea
+            $table->unsignedBigInteger('usuario_id'); // Relación con users
+            $table->foreign('usuario_id')->references('id')->on('users'); // clave foranea
 
-            $table->unsignedBigInteger('trabajador_id'); // Relación con trabajador
+            $table->unsignedBigInteger('trabajador_id'); // Relación con trabajadors
             $table->foreign('trabajador_id')->references('id')->on('trabajadors'); // clave foranea
-           
+
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateMantencionTrabajadorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mantencion_trabajador');
+        Schema::dropIfExists('trabajador_usuario');
     }
 }

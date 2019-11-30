@@ -36,4 +36,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //relacion uno a muchos
+    
+    public function tipo(){ //Relacion Equipo-> tipo
+        return $this->belongsTo(Tipo::class); //tiene un tipo.
+    }
+
+
+    //relacion muchos a muchos
+
+    public function fases(){
+        return $this->belongsToMany(Fase::class); // Muchos a muchos
+    }
+
+    public function cargos(){
+        return $this->belongsToMany(Cargo::class); // Muchos a muchos
+    }
+
+    public function insumos(){
+        return $this->belongsToMany(Insumo::class); // Muchos a muchos
+    }
+
+    public function trabajadores(){
+        return $this->belongsToMany(Trabajador::class); // Muchos a muchos
+    }
+
 }
