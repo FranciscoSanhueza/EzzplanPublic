@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Insumo;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreInsumoRequest;
 
 class InsumosController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
-    }   
+    }
 
     /**
      * Display a listing of the resource.
@@ -20,7 +22,7 @@ class InsumosController extends Controller
     public function index()
     {
         $insumos = auth()->user()->insumos;
-        return  view('insumos.list' , compact('insumos'));
+        return  view('insumos.list', compact('insumos'));
     }
 
     /**
@@ -39,35 +41,46 @@ class InsumosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreInsumoRequest $request)
     {
+        //obtenemos datos del request
         $nombre = $request->input("txt_nombre");
-        $desc = $request->input("txt_descripcion"); 
-        if(trim($nombre) != "" & trim($desc) != ""){
-            $validar = Insumo::where('nombre' , 'hola')->doesntExist();
-            if($validar){
-                $insumo = new Insumo();
-                $insumo->nombre = $request->input("txt_nombre"); 
-                $insumo->desc = $request->input("txt_descripcion");
-                $insumo->estado_id = 1; 
-                $insumo->save();
-                $relacion = Insumo::where('nombre', $nombre)->first();
-                auth()->user()->insumos()->attach($relacion->id);
-                $msgInsert = "Ingresado Correctamente";
-                return  view('insumos.insert' , compact('msgInsert'));
-            }else{
-                $relacion = Insumo::where('nombre', $nombre)->first();
-                auth()->user()->insumos()->attach($relacion->id);
-                $msgInsert = "Ingresado Correctamente";
-                return  view('insumos.insert' , compact('msgInsert'));    
-            }
-        }else{
-            $msgInsert = "Error no se permiten campos vacios";
-            return  view('insumos.insert' , compact('msgInsert'));
+        $desc = $request->input("txt_descripcion");
+        //variables para validar que no existan en la base de datos
+        $validarN = Insumo::where([
+            ['nombre', '=', $nombre],
+            ['desc', '=', $desc],
+        ])->doesntExist();
+        $validarD = Insumo::where('desc', $desc)->doesntExist();
+        //valida de que los campos a ingresar no existen
+        if ($validarN and $validarD) {
+            //si no existen prepara el ingreso 
+            $insumo = new Insumo();
+            $insumo->nombre = $request->input("txt_nombre");
+            $insumo->desc = $request->input("txt_descripcion");
+            $insumo->estado_id = 1;
+            //ingresa los datos a bd del nuevo insumo
+            $insumo->save();
+            //busca el insumo nuevo ingresado
+            $relacion = Insumo::max('id');
+            //genera la relacion en la tabla pibote
+            auth()->user()->insumos()->attach($relacion);
+            //mensaje y redireccion
+            $msgInsert = "Ingresado Correctamente";
+            return  view('insumos.insert', compact('msgInsert'));
+        } else {
+            //si existen los registros, relaciona el existente con el usuario que lo solicita
+            //busca el insumo a relacionar
+            $relacion = Insumo::where([
+                ['nombre', '=', $nombre],
+                ['desc', '=', $desc],
+            ])->first();
+            //relaciona el inusmo existente con el usuario en la tabla pibote
+            auth()->user()->insumos()->attach($relacion->id);
+            //mensaje y redireccion
+            $msgInsert = "Asignado Correctamente";
+            return  view('insumos.insert', compact('msgInsert'));
         }
-        
-
-       
     }
 
     /**

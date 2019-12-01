@@ -14,6 +14,7 @@
       <th scope="col">id</th>
       <th scope="col">Nombre</th>
       <th scope="col">Descripción</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,7 @@
       <th scope="row">{{ $item->id }}</th>
       <td>{{ $item->nombre }}</td>
       <td>{{ $item->desc }}</td>
+      <a class="btn btn-success" href="Insumos/{{$item->id}}" role="button">+</a>
     </tr>
     @endforeach
   </tbody>
