@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Empresa;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,11 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    public function ReturnViewRegistro()
+    {
+        $empresas = Empresa::all();
+        return  view('auth.register', compact('empresas'));
+    }
     use RegistersUsers;
 
     /**

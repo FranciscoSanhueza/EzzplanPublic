@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'run','name','apellido', 'email', 'password','tipo_id','estado_id'
+        'run', 'name', 'apellido', 'email', 'password', 'tipo_id', 'estado_id'
     ];
 
     /**
@@ -38,32 +38,42 @@ class User extends Authenticatable
     ];
 
     //relacion uno a muchos
-    
-    public function tipo(){ //Relacion Equipo-> tipo
+
+    public function tipo()
+    { //Relacion usuario-> tipo
         return $this->belongsTo(Tipo::class); //tiene un tipo.
     }
 
-    public function estado(){ //Relacion Equipo-> tipo
+    public function estado()
+    { //Relacion usuario-> Estado
         return $this->belongsTo(Estado::class); //tiene un tipo.
+    }
+
+    public function empresa()
+    { //Relacion usuario-> Empresa
+        return $this->belongsTo(Empresa::class); //tiene un Empresa.
     }
 
 
     //relacion muchos a muchos
 
-    public function fases(){
+    public function fases()
+    {
         return $this->belongsToMany(Fase::class)->withTimestamps();; // Muchos a muchos
     }
 
-    public function cargos(){
+    public function cargos()
+    {
         return $this->belongsToMany(Cargo::class)->withTimestamps();; // Muchos a muchos
     }
 
-    public function insumos(){
+    public function insumos()
+    {
         return $this->belongsToMany(Insumo::class)->withTimestamps();; // Muchos a muchos
     }
 
-    public function trabajadores(){
+    public function trabajadores()
+    {
         return $this->belongsToMany(Trabajador::class)->withTimestamps();; // Muchos a muchos
     }
-
 }

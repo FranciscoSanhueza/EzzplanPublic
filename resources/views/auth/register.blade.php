@@ -54,6 +54,23 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="empresa" class="col-md-4 col-form-label text-md-right">{{ __('Empresa') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control @error('empresa') is-invalid @enderror" id="empresa" name="empresa" required>
+                                    @foreach ($empresas as $item)
+                                        <option>{{$item->Nombre}}</option>
+                                    @endforeach
+                                </select>
+                                @error('empresa')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
                             <div class="col-md-6">
