@@ -18,12 +18,27 @@
     </tr>
   </thead>
   <tbody>
+    @if(session('msj'))
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          {{session('msj')}}
+      </div>
+    @endif
+
+
     @foreach ($insumos as $item)
     <tr>
       <th scope="row">{{ $item->id }}</th>
       <td>{{ $item->nombre }}</td>
       <td>{{ $item->desc }}</td>
-      <a class="btn btn-success" href="Insumos/{{$item->id}}" role="button">+</a>
+      <td>
+          <a class="btn btn-info btn-sm" href="Insumos/{{$item->id}}/edit" role="button">Modificar</a>
+
+          <form action="{{ route('Insumos.destroy', $item->id) }}" class="d-inline" method="POST">
+              @method('DELETE')
+              @csrf
+              <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+          </form> 
+      </td>
     </tr>
     @endforeach
   </tbody>

@@ -123,8 +123,11 @@ class InsumosController extends Controller
      * @param  \App\Insumo  $insumo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Insumo $insumo)
+    public function destroy($insumo)
     {
-        //
+        $insumoEliminar = Insumo::findOrFail($insumo);
+        $insumoEliminar->estado_id = 2;
+        $insumoEliminar->save();
+        return back()->with('msj', 'Insumo Eliminado Correctamente');
     }
 }
