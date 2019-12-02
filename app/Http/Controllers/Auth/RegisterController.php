@@ -42,7 +42,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        //$this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -59,6 +60,7 @@ class RegisterController extends Controller
             'apellido' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'empresa' => ['required', 'string', 'exists:empresas,Nombre'],
         ]);
     }
 
@@ -70,6 +72,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $empresa = Empresa::where('Nombre', $data['empresa'])->first();
         return User::create([
             'run' => $data['run'],
             'name' => $data['name'],
@@ -78,6 +81,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'tipo_id' => 1,
             'estado_id' => 1,
+            'empresa_id' => $empresa->id,
         ]);
     }
 }
