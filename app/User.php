@@ -54,26 +54,26 @@ class User extends Authenticatable
         return $this->belongsTo(Empresa::class); //tiene un Empresa.
     }
 
+    public function fase()
+    {
+        return $this->belongsTo(Fase::class); // Muchos a muchos
+    }
+
+    public function cargo()
+    {
+        return $this->belongsTo(Cargo::class); // Muchos a muchos
+    }
+
+    public function insumo()
+    {
+        return $this->belongsTo(Insumo::class); // Muchos a muchos
+    }
+
+    public function trabajador()
+    {
+        return $this->belongsTo(Trabajador::class); // Muchos a muchos
+    }
+
 
     //relacion muchos a muchos
-
-    public function fases()
-    {
-        return $this->belongsToMany(Fase::class)->withTimestamps();; // Muchos a muchos
-    }
-
-    public function cargos()
-    {
-        return $this->belongsToMany(Cargo::class)->withTimestamps();; // Muchos a muchos
-    }
-
-    public function insumos()
-    {
-        return $this->belongsToMany(Insumo::class)->withTimestamps();; // Muchos a muchos
-    }
-
-    public function trabajadores()
-    {
-        return $this->belongsToMany(Trabajador::class)->withTimestamps();; // Muchos a muchos
-    }
 }
