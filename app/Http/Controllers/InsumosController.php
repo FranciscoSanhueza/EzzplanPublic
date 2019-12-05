@@ -58,7 +58,7 @@ class InsumosController extends Controller
         $insumo->save();
 
         $msgInsert = "Ingresado Correctamente";
-        return  view('insumos.insert', compact('msgInsert'));
+        //return  view('insumos.insert', compact('msgInsert'));
     }
 
     /**
@@ -68,7 +68,9 @@ class InsumosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Insumo $insumo)
-    { }
+    {
+        return abort(404);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -79,7 +81,11 @@ class InsumosController extends Controller
     public function edit($insumo)
     {
         $insumoed = Insumo::FindOrFail($insumo);
-        return view('insumos.edit', compact('insumoed'));
+        if ($insumoed->user_id == auth()->user()->id) {
+            return view('insumos.edit', compact('insumoed'));
+        } else {
+            return abort(404);
+        }
     }
 
     /**
@@ -89,9 +95,21 @@ class InsumosController extends Controller
      * @param  \App\Insumo  $insumo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Insumo $insumo)
+    public function update(Request $request, $insumo)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string',
+            'descripcion' => 'required|string|',
+            'estado' => 'required|numeric|between:1,2',
+        ]);
+        $insumoed = Insumo::FindOrFail($insumo);
+        $insumoed->nombre = $request->input("nombre");
+        $insumoed->desc = $request->input("descripcion");
+        $insumoed->estado_id = $request->input("estado");
+        $insumoed->save();
+
+        $msgInsert = "Actualizado Correctamente";
+        return  view('insumos.edit', compact('msgInsert', 'insumoed'));
     }
 
     /**

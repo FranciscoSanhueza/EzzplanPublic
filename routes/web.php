@@ -19,6 +19,10 @@ Route::get('register', 'Auth\RegisterController@ReturnViewRegistro')->name('regi
 
 Auth::routes();
 
+Route::resource('fases', 'faseController');
+
+Route::resource('mantenciones', 'mantencionController');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('Insumos', 'InsumosController');

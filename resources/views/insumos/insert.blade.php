@@ -1,30 +1,76 @@
-@extends('layouts.app')
-@section('title', 'Control Insumos')
+<!-- extiende de intra -->
+@extends('layouts.intra')
+
+ <!-- titulo del navegador -->
+@section('title','Control de Insumos')
+
+ <!-- espacio para estilos -->
+@section('styles')
+    
+@endsection
+
+@section('user')
+    {{auth()->user()->name." ".auth()->user()->apellido}}
+@endsection
+
+ <!-- titulo de la pagina -->
+@section('title_content', 'Control de Insumos')
+
+ <!-- contenido -->
 @section('content')
-<form class="form-group" method="POST" action="/Insumos">
-    @csrf
-    <div class="form-group">
-        <label for="txt_nombre">Nombre</label>
-        <input type="text" class="form-control" id="txt_nombre" name="txt_nombre" value="{{ old('txt_nombre') }}">
+<div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">{{ __('Ingreso de Insumos') }}</div>
+                    <div class="card-body">
+                    <form class="form-group" method="POST" action="{{ route('Insumos.store') }}">
+                            @csrf
+                                <div class="form-group row">
+                                    <label for="txt_nombre" class="col-md-4 col-form-label text-md-right">Nombre</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control @error('txt_nombre') is-invalid @enderror" id="txt_nombre" name="txt_nombre" value="{{ old('txt_nombre') }}">
+                                        @error('txt_nombre')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                        <label for="txt_descripcion" class="col-md-4 col-form-label text-md-right">Descripcion</label>
+                                        <div class="col-md-7">
+                                            <textarea class="form-control @error('txt_descripcion') is-invalid @enderror" id="txt_descripcion" name="txt_descripcion" rows="3"> {{ old('txt_descripcion') }} </textarea>
+                                        
+                                        @error('txt_descripcion')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>    
+                                </div>
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-6 offset-md-8">
+                                        <button type="submit" class="btn btn-primary rigth">Registrar</button>
+                                    </div>       
+                                </div>
+                            </form>
+                            <br/>
+
+                           
+                            @isset($msgInsert)
+                                <div class="alert alert-success">{{ $msgInsert }}</div>
+                            @endisset
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    @error('txt_nombre')
-        <div class="alert alert-danger">{{ $message }}</div>
-    @enderror
+@endsection
 
-    <div class="form-group">
-        <label for="txt_descripcion">Descripcion</label>
-        <textarea class="form-control" id="txt_descripcion" name="txt_descripcion" rows="3" value="{{ old('txt_descripcion') }}"></textarea>
-    </div>
+ <!-- scripts -->
+@section('js')
 
-    @error('txt_descripcion')
-        <div class="alert alert-danger">{{ $message }}</div>
-    @enderror
-
-    <button type="submit" class="btn btn-primary">Registrar</button>
-</form>
-
-@isset($msgInsert)
-    <div class="alert alert-success">{{ $msgInsert }}</div>
-@endisset
 @endsection

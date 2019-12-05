@@ -1,5 +1,22 @@
-@extends('layouts.app')
-@section('title', 'Control Insumos')
+<!-- extiende de intra -->
+@extends('layouts.intra')
+
+ <!-- titulo del navegador -->
+@section('title','Control de Insumos')
+
+ <!-- espacio para estilos -->
+@section('styles')
+    
+@endsection
+
+@section('user')
+    {{auth()->user()->name." ".auth()->user()->apellido}}
+@endsection
+
+ <!-- titulo de la pagina -->
+@section('title_content', 'Control de Insumos')
+
+ <!-- contenido -->
 @section('content')
 <div class="row">
     <div class="col-8"></div>
@@ -32,15 +49,20 @@
       <td>{{ $item->desc }}</td>
       <td>
       <a class="btn btn-info btn-sm" href="{{ route('Insumos.edit' , $item->id) }}" role="button">Modificar</a>
-
+      <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#logoutModal">Eliminar</a>
           <form action="{{ route('Insumos.destroy', $item->id) }}" class="d-inline" method="POST">
               @method('DELETE')
               @csrf
-              <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
           </form> 
       </td>
     </tr>
     @endforeach
   </tbody>
 </table>
+
+@endsection
+
+ <!-- scripts -->
+@section('js')
+    
 @endsection
