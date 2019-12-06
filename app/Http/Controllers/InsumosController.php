@@ -26,6 +26,7 @@ class InsumosController extends Controller
             ['user_id', '=', $user],
             ['estado_id', '=', 1],
         ])->get();
+
         return  view('insumos.list', compact('insumos'));
     }
 
@@ -120,9 +121,10 @@ class InsumosController extends Controller
      */
     public function destroy($insumo)
     {
+        return $insumo;
         $insumoEliminar = Insumo::findOrFail($insumo);
         $insumoEliminar->estado_id = 2;
         $insumoEliminar->save();
-        return back()->with('msj', 'Insumo Eliminado Correctamente');
+        //return back()->with('msj', 'Insumo Eliminado Correctamente');
     }
 }

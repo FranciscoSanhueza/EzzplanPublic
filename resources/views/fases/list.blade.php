@@ -31,13 +31,6 @@
         </tr>
       </thead>
       <tbody>
-        @if(session('msj'))
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              {{session('msj')}}
-          </div>
-        @endif
-    
-    
         @foreach ($fases as $item)
         <tr>
           <th scope="row">{{ $item->id }}</th>
@@ -45,20 +38,43 @@
           <td>{{ $item->desc }}</td>
           <td>
           <a class="btn btn-info btn-sm" href="{{ route('fases.edit' , $item->id) }}" role="button">Modificar</a>
-    
-              <form action="{{ route('fases.destroy', $item->id) }}" class="d-inline" method="POST">
-                  @method('DELETE')
-                  @csrf
-                  <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-              </form> 
+          <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal">Eliminar</a>
+          <form id="delete-form" action="{{ route('fases.destroy', $item->id) }}" class="d-inline" method="POST" style="display: none;">
+              @method('DELETE')
+              @csrf
+          </form> 
+          
           </td>
         </tr>
         @endforeach
       </tbody>
     </table>
+
+@component('layouts.modalConfirm')
+  @slot('id' , 'deleteModal')
+  @slot('title' , '¿Estas seguro que deseas eliminar?')
+  @slot('body')
+      <p>Si Eliminas esta fase no podra ser recuperada</p>
+  @endslot
+  @slot('actionbtn')
+  <a 
+  class="btn btn-danger" 
+  href="#"
+  onclick="event.preventDefault(); document.getElementById('delete-form').submit();" >
+  Eliminar
+  </a>  
+  @endslot
+@endcomponent
+
 @endsection
 
  <!-- scripts -->
 @section('js')
-    
+  @if (session('msj'))
+    @component('layouts.toast')
+      @slot('tipo', 'success')
+      @slot('title', 'Eliminado')
+      @slot('body' , session('msj'))
+    @endcomponent
+  @endif
 @endsection

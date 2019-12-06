@@ -74,9 +74,6 @@
                         
                     </form>
                     <br/>
-                    @isset($msgInsert)
-                        <div class="alert alert-success">{{ $msgInsert }}</div>
-                    @endisset
                 </div>
             </div>
         </div>
@@ -86,5 +83,11 @@
 
  <!-- scripts -->
 @section('js')
-    
+    @isset($msgInsert)
+        @component('layouts.toast')
+            @slot('tipo', 'success')
+            @slot('title', 'Modificado')
+            @slot('body' , 'Insumo Modificado correctamente' ) 
+        @endcomponent
+    @endisset
 @endsection

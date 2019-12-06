@@ -31,13 +31,7 @@
     </tr>
   </thead>
   <tbody>
-    @if(session('msj'))
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          {{session('msj')}}
-      </div>
-    @endif
-
-
+    
     @foreach ($insumos as $item)
     <tr>
       <th scope="row">{{ $item->id }}</th>
@@ -57,24 +51,30 @@
 </table>
 
 @component('layouts.modalConfirm')
-@slot('id' , 'deleteModal')
-@slot('title' , '¿Estas seguro que deseas eliminar?')
-@slot('body')
-    <p>Si Eliminas el insumo no podra ser recuperado</p>
-@endslot
-@slot('actionbtn')
-<a 
-class="btn btn-danger" 
-href="#"
-onclick="event.preventDefault(); document.getElementById('delete-form').submit();" >
-Eliminar
-</a>  
-@endslot
+  @slot('id' , 'deleteModal')
+  @slot('title' , '¿Estas seguro que deseas eliminar?')
+  @slot('body')
+      <p>Si Eliminas el insumo no podra ser recuperado</p>
+  @endslot
+  @slot('actionbtn')
+  <a 
+  class="btn btn-danger" 
+  href="#"
+  onclick="event.preventDefault(); document.getElementById('delete-form').submit();" >
+  Eliminar
+  </a>  
+  @endslot
 @endcomponent
 
 @endsection
 
  <!-- scripts -->
 @section('js')
-    
+  @if (session('msj'))
+    @component('layouts.toast')
+      @slot('tipo', 'success')
+      @slot('title', 'Eliminado')
+      @slot('body' , session('msj'))
+    @endcomponent
+  @endif
 @endsection

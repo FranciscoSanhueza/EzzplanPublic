@@ -25,7 +25,7 @@
                                 <div class="form-group row">
                                     <label for="txt_nombre" class="col-md-4 col-form-label text-md-right">Nombre</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control @error('txt_nombre') is-invalid @enderror" id="txt_nombre" name="txt_nombre" value="{{ old('txt_nombre') }}">
+                                        <input type="text" class="form-control @error('txt_nombre') is-invalid @enderror" id="txt_nombre" name="txt_nombre" value="{{ old('txt_nombre') }}" required >
                                         @error('txt_nombre')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -37,7 +37,7 @@
                                 <div class="form-group row">
                                         <label for="txt_descripcion" class="col-md-4 col-form-label text-md-right">Descripcion</label>
                                         <div class="col-md-7">
-                                            <textarea class="form-control @error('txt_descripcion') is-invalid @enderror" id="txt_descripcion" name="txt_descripcion" rows="3"> {{ old('txt_descripcion') }} </textarea>
+                                            <textarea class="form-control @error('txt_descripcion') is-invalid @enderror" id="txt_descripcion" name="txt_descripcion" rows="3" required > {{ old('txt_descripcion') }} </textarea>
                                         
                                         @error('txt_descripcion')
                                             <span class="invalid-feedback" role="alert">
@@ -55,9 +55,7 @@
                             <br/>
 
                            
-                            @isset($msgInsert)
-                                <div class="alert alert-success">{{ $msgInsert }}</div>
-                            @endisset
+                            
                     </div>
                 </div>
             </div>
@@ -68,5 +66,11 @@
 
  <!-- scripts -->
 @section('js')
-
+    @isset($msgInsert)
+        @component('layouts.toast')
+            @slot('tipo', 'success')
+            @slot('title', 'Insertado')
+            @slot('body' , 'Insumo insertado correctamente' ) 
+        @endcomponent
+    @endisset
 @endsection
