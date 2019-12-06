@@ -79,6 +79,13 @@
         <div class="sidebar-heading">
           Informacion
         </div>
+
+           <!-- Nav Item - usuarios -->
+           <li class="nav-item">
+            <a class="nav-link" href="{{ route('register') }}">
+            <i class="fas fa-fw fa-toolbox"></i>
+            <span>Usuarios</span></a>
+        </li>
   
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
@@ -100,19 +107,7 @@
           </div>
         </li>
   
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-          <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-        </li>
   
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
-        </li>
   
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

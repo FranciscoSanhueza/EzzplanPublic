@@ -9,10 +9,6 @@
     
 @endsection
 
-@section('user')
-    {{auth()->user()->name." ".auth()->user()->apellido}}
-@endsection
-
  <!-- titulo de la pagina -->
 @section('title_content', 'Control de Insumos')
 

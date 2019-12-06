@@ -96,7 +96,7 @@
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$user}}</span>
+            <span class="mr-2 d-lg-inline text-gray-600 small" style="">{{ $user}}</span>
               <img class="img-profile rounded-circle" src="https://source.unsplash.com/Random/60x60">
             </a>
             <!-- Dropdown - User Information -->
@@ -116,3 +116,26 @@
         </ul>
 
       </nav>
+
+<!-- Logout Modal-->
+    @component('layouts.modalConfirm')
+    @slot('id' , 'logoutModal')
+    @slot('title' , '¿Estas seguro que deseas salir?')
+    @slot('body')
+        <p>si cierras sesion no podras acceder al contenido de la pagina</p>
+        <p>deberas validar tu informacion nuevamente</p>
+    @endslot
+    @slot('actionbtn')
+    <a 
+    class="btn btn-danger" 
+    href="{{ route('logout') }}"
+    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
+    Salir
+    </a>
+        
+    @endslot
+@endcomponent
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>

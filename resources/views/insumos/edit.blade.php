@@ -1,7 +1,20 @@
-@extends('layouts.app')
-@section('title', 'Control Insumos')
-@section('content')
+<!-- extiende de intra -->
+@extends('layouts.intra')
 
+ <!-- titulo del navegador -->
+@section('title','Control de Insumos')
+
+ <!-- espacio para estilos -->
+@section('styles')
+    
+@endsection
+
+ <!-- titulo de la pagina -->
+@section('title_content', 'Control de Insumos')
+
+ <!-- contenido -->
+@section('content')
+    
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -69,6 +82,9 @@
         </div>
     </div>
 </div>
+@endsection
 
-
+ <!-- scripts -->
+@section('js')
+    
 @endsection

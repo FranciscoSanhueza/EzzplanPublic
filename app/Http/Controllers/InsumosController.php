@@ -58,7 +58,7 @@ class InsumosController extends Controller
         $insumo->save();
 
         $msgInsert = "Ingresado Correctamente";
-        //return  view('insumos.insert', compact('msgInsert'));
+        return  view('insumos.insert', compact('msgInsert'));
     }
 
     /**

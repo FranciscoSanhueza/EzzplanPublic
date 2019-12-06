@@ -9,10 +9,6 @@
     
 @endsection
 
-@section('user')
-    {{auth()->user()->name." ".auth()->user()->apellido}}
-@endsection
-
  <!-- titulo de la pagina -->
 @section('title_content', 'Control de Insumos')
 
@@ -49,8 +45,8 @@
       <td>{{ $item->desc }}</td>
       <td>
       <a class="btn btn-info btn-sm" href="{{ route('Insumos.edit' , $item->id) }}" role="button">Modificar</a>
-      <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#logoutModal">Eliminar</a>
-          <form action="{{ route('Insumos.destroy', $item->id) }}" class="d-inline" method="POST">
+      <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal">Eliminar</a>
+          <form id="delete-form" action="{{ route('Insumos.destroy', $item->id) }}" class="d-inline" method="POST" style="display: none;">
               @method('DELETE')
               @csrf
           </form> 
@@ -59,6 +55,22 @@
     @endforeach
   </tbody>
 </table>
+
+@component('layouts.modalConfirm')
+@slot('id' , 'deleteModal')
+@slot('title' , '¿Estas seguro que deseas eliminar?')
+@slot('body')
+    <p>Si Eliminas el insumo no podra ser recuperado</p>
+@endslot
+@slot('actionbtn')
+<a 
+class="btn btn-danger" 
+href="#"
+onclick="event.preventDefault(); document.getElementById('delete-form').submit();" >
+Eliminar
+</a>  
+@endslot
+@endcomponent
 
 @endsection
 
