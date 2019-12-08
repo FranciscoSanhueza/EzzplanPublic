@@ -26,3 +26,11 @@ Route::resource('mantenciones', 'mantencionController');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('Insumos', 'InsumosController');
+
+Route::resource('cargos', 'CargoController');
+
+Route::resource('equipos', 'EquipoController');
+
+Route::resource('fabricantes', 'FabricanteController');
+
+Route::resource('trabajadores', 'TrabajadorController');

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mantencion;
+use App\Trabajador;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
-class mantencionController extends Controller
+class TrabajadorController extends Controller
 {
 
     public function __construct()
@@ -20,7 +19,7 @@ class mantencionController extends Controller
      */
     public function index()
     {
-        return view('mantenciones.list');
+        //
     }
 
     /**
@@ -47,10 +46,10 @@ class mantencionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Mantencion  $mantencion
+     * @param  \App\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function show(Mantencion $mantencion)
+    public function show(Trabajador $trabajador)
     {
         //
     }
@@ -58,10 +57,10 @@ class mantencionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Mantencion  $mantencion
+     * @param  \App\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mantencion $mantencion)
+    public function edit(Trabajador $trabajador)
     {
         //
     }
@@ -70,10 +69,10 @@ class mantencionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Mantencion  $mantencion
+     * @param  \App\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mantencion $mantencion)
+    public function update(Request $request, Trabajador $trabajador)
     {
         //
     }
@@ -81,10 +80,10 @@ class mantencionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Mantencion  $mantencion
+     * @param  \App\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mantencion $mantencion)
+    public function destroy(Trabajador $trabajador)
     {
         //
     }

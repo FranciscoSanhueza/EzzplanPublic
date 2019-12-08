@@ -93,6 +93,8 @@
   <!-- Core plugin JavaScript-->
   <script src="{{ asset('js/jquery-easing/jquery.easing.min.js') }}"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
   <!-- Custom scripts for all pages-->
   <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
