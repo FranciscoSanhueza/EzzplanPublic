@@ -43,6 +43,10 @@ class AddEstadoToAll extends Migration
             $table->foreign('estado_id')->references('id')->on('estados'); // clave foranea
         });
 
+        Schema::table('fabricantes', function (Blueprint $table) {
+            $table->unsignedBigInteger('estado_id'); // Relación con estado
+            $table->foreign('estado_id')->references('id')->on('estados'); // clave foranea
+        });
     }
 
     /**
@@ -79,6 +83,11 @@ class AddEstadoToAll extends Migration
 
         Schema::table('departamentos', function (Blueprint $table) {
             $table->dropForeign('departamentos_estado_id_foreign');
+            $table->dropColumn('estado_id');
+        });
+
+        Schema::table('fabricantes', function (Blueprint $table) {
+            $table->dropForeign('fabricantes_estado_id_foreign');
             $table->dropColumn('estado_id');
         });
     }

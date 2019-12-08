@@ -19,7 +19,12 @@ class CargoController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user()->id;
+        $cargo = Cargo::where([
+            ['user_id', '=', $user],
+            ['estado_id', '=', 1],
+        ])->get();
+        return view('cargo.list', compact('cargo'));
     }
 
     /**
@@ -29,7 +34,7 @@ class CargoController extends Controller
      */
     public function create()
     {
-        //
+        return view('cargo.insert');
     }
 
     /**
@@ -40,7 +45,21 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validacion
+        $request->validate([
+            'nombre' => 'required|string',
+            'funcion' => 'required|string',
+        ]);
+        //obtenemos datos del request
+        $cargo = new Cargo();
+        $cargo->nombre = $request->input("nombre");
+        $cargo->funcion = $request->input("funcion");
+        $cargo->estado_id = 1;
+        $cargo->user_id = auth()->user()->id;
+        $cargo->save();
+
+        $msgInsert = "Ingresado Correctamente";
+        return  view('cargo.insert', compact('msgInsert'));
     }
 
     /**
@@ -51,7 +70,7 @@ class CargoController extends Controller
      */
     public function show(Cargo $cargo)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -60,9 +79,14 @@ class CargoController extends Controller
      * @param  \App\Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cargo $cargo)
+    public function edit($cargo)
     {
-        //
+        $cargoed = Cargo::FindOrFail($cargo);
+        if ($cargoed->user_id == auth()->user()->id) {
+            return view('cargo.edit', compact('cargoed'));
+        } else {
+            return abort(404);
+        }
     }
 
     /**
@@ -72,9 +96,21 @@ class CargoController extends Controller
      * @param  \App\Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cargo $cargo)
+    public function update(Request $request, $cargo)
     {
-        //
+        //validacion
+        $request->validate([
+            'nombre' => 'required|string',
+            'funcion' => 'required|string',
+        ]);
+        //obtenemos datos del request
+        $cargoed = Cargo::FindOrFail($cargo);
+        $cargoed->nombre = $request->input("nombre");
+        $cargoed->funcion = $request->input("funcion");
+        $cargoed->save();
+
+        $msgInsert = "Actualizado Correctamente";
+        return  view('cargo.edit', compact('msgInsert', 'cargoed'));
     }
 
     /**
@@ -83,8 +119,11 @@ class CargoController extends Controller
      * @param  \App\Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cargo $cargo)
+    public function destroy($cargo)
     {
-        //
+        $cargoel = Cargo::findOrFail($cargo);
+        $cargoel->estado_id = 2;
+        $cargoel->save();
+        return back()->with('msj', 'Cargo Eliminado Correctamente');
     }
 }

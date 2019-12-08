@@ -74,6 +74,16 @@ class User extends Authenticatable
         return $this->belongsTo(Trabajador::class); // Muchos a muchos
     }
 
+    public function fabricante()
+    {
+        return $this->belongsTo(Fabricante::class); // Muchos a muchos
+    }
+
+    public function equipo()
+    {
+        return $this->belongsTo(Equipo::class); // Muchos a muchos
+    }
+
 
     //relacion muchos a muchos
 }

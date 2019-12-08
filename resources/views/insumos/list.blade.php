@@ -21,7 +21,7 @@
     </div>
 </div>
 <br/>
-<table class="table">
+<table class="table" id="dtb">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -39,32 +39,18 @@
       <td>{{ $item->desc }}</td>
       <td>
       <a class="btn btn-info btn-sm" href="{{ route('Insumos.edit' , $item->id) }}" role="button">Modificar</a>
-      <a class="btn btn-danger btn-sm" href="#" onclick="Eliminar()">Eliminar</a>
-          <form id="delete-form" action="{{ route('Insumos.destroy', $item->id) }}" class="d-inline" method="POST" style="display: none;">
-              @method('DELETE')
-              @csrf
-          </form> 
+      <a class="btn btn-danger btn-sm" href="#" onclick="Eliminar({{ $item->id }} , 'el Insumo')">Eliminar</a> 
       </td>
     </tr>
     @endforeach
   </tbody>
 </table>
 
-@component('layouts.modalConfirm')
-  @slot('id' , 'deleteModal')
-  @slot('title' , '¿Estas seguro que deseas eliminar?')
-  @slot('body')
-      <p>Si Eliminas el insumo no podra ser recuperado</p>
-  @endslot
-  @slot('actionbtn')
-  <a 
-  class="btn btn-danger" 
-  href="#"
-  onclick="event.preventDefault(); document.getElementById('delete-form').submit();" >
-  Eliminar
-  </a>  
-  @endslot
-@endcomponent
+
+<form id="delete-form" action="" class="d-inline" method="POST" style="display: none;">
+  @method('DELETE')
+  @csrf
+</form>
 
 @endsection
 
@@ -77,14 +63,10 @@
       @slot('body' , session('msj'))
     @endcomponent
   @endif
+
   <script>
-      function Eliminar(btn){
-        Swal.fire({
-        title: 'Error!',
-        text: 'Do you want to continue',
-        icon: 'error',
-        confirmButtonText: 'Cool'
-      })
-      }
+    $(document).ready( function () {
+    $('#dtb').DataTable();
+    } );
   </script>
 @endsection

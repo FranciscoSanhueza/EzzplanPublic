@@ -6,19 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Equipo extends Model
 {
-    public function tipo(){ //Relacion Equipo-> tipo
+    public function tipo()
+    { //Relacion Equipo-> tipo
         return $this->belongsTo(Tipo::class); //tiene un tipo.
     }
 
-    public function departamento(){ //Relacion Equipo-> departamento
+    public function departamento()
+    { //Relacion Equipo-> departamento
         return $this->belongsTo(Departamento::class); //Pertenece a un departamento.
     }
 
-    public function fabricante(){ //Relacion Equipo-> fabricante
+    public function fabricante()
+    { //Relacion Equipo-> fabricante
         return $this->belongsTo(Fabricante::class); //Pertenece a un fabricante.
     }
 
-    public function estado(){ //Relacion Equipo-> estado
+    public function estado()
+    { //Relacion Equipo-> estado
         return $this->belongsTo(Estado::class); //tiene un estado.
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class); // Muchos a muchos
     }
 }

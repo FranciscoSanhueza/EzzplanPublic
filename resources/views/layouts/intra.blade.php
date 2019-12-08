@@ -28,6 +28,8 @@
   <!--  css toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
 @yield('styles')
 </head>
 
@@ -100,8 +102,13 @@
 
   <!-- Page level plugins -->
   <script src="{{ asset('js/chart.js/Chart.min.js') }}"></script>
+
+  <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
   <!-- js toastr -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+  <script src="{{ asset('js/util.js') }}"></script>
 
   @yield('js')
 

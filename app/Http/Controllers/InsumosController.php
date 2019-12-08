@@ -121,10 +121,9 @@ class InsumosController extends Controller
      */
     public function destroy($insumo)
     {
-        return $insumo;
         $insumoEliminar = Insumo::findOrFail($insumo);
         $insumoEliminar->estado_id = 2;
         $insumoEliminar->save();
-        //return back()->with('msj', 'Insumo Eliminado Correctamente');
+        return back()->with('msj', 'Insumo Eliminado Correctamente');
     }
 }

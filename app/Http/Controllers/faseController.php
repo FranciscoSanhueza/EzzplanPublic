@@ -50,7 +50,7 @@ class faseController extends Controller
         //validacion
         $request->validate([
             'nombre' => 'required|string',
-            'desc' => 'required|string|',
+            'desc' => 'required|string',
         ]);
         //obtenemos datos del request
         $fase = new Fase();
@@ -124,6 +124,6 @@ class faseController extends Controller
         $faseEliminar = Fase::findOrFail($fase);
         $faseEliminar->estado_id = 2;
         $faseEliminar->save();
-        return back()->with('msj', 'Insumo Eliminado Correctamente');
+        return back()->with('msj', 'fase Eliminada Correctamente');
     }
 }

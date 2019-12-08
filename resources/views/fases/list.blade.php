@@ -38,11 +38,7 @@
           <td>{{ $item->desc }}</td>
           <td>
           <a class="btn btn-info btn-sm" href="{{ route('fases.edit' , $item->id) }}" role="button">Modificar</a>
-          <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal">Eliminar</a>
-          <form id="delete-form" action="{{ route('fases.destroy', $item->id) }}" class="d-inline" method="POST" style="display: none;">
-              @method('DELETE')
-              @csrf
-          </form> 
+          <a class="btn btn-danger btn-sm" href="#" onclick="Eliminar({{ $item->id }} , 'la fase')">Eliminar</a> 
           
           </td>
         </tr>
@@ -50,22 +46,10 @@
       </tbody>
     </table>
 
-@component('layouts.modalConfirm')
-  @slot('id' , 'deleteModal')
-  @slot('title' , '¿Estas seguro que deseas eliminar?')
-  @slot('body')
-      <p>Si Eliminas esta fase no podra ser recuperada</p>
-  @endslot
-  @slot('actionbtn')
-  <a 
-  class="btn btn-danger" 
-  href="#"
-  onclick="event.preventDefault(); document.getElementById('delete-form').submit();" >
-  Eliminar
-  </a>  
-  @endslot
-@endcomponent
-
+    <form id="delete-form" action="" class="d-inline" method="POST" style="display: none;">
+        @method('DELETE')
+        @csrf
+    </form> 
 @endsection
 
  <!-- scripts -->

@@ -32,6 +32,16 @@ class AddUserToAll extends Migration
             $table->unsignedBigInteger('user_id'); // Relación con usuario
             $table->foreign('user_id')->references('id')->on('users'); // clave foranea
         });
+
+        Schema::table('fabricantes', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id'); // Relación con usuario
+            $table->foreign('user_id')->references('id')->on('users'); // clave foranea
+        });
+
+        Schema::table('equipos', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id'); // Relación con usuario
+            $table->foreign('user_id')->references('id')->on('users'); // clave foranea
+        });
     }
 
     /**
@@ -58,6 +68,16 @@ class AddUserToAll extends Migration
 
         Schema::table('fases', function (Blueprint $table) {
             $table->dropForeign('fases_user_id_foreign');
+            $table->dropColumn('user_id');
+        });
+
+        Schema::table('fabricantes', function (Blueprint $table) {
+            $table->dropForeign('fabricantes_user_id_foreign');
+            $table->dropColumn('user_id');
+        });
+
+        Schema::table('equipos', function (Blueprint $table) {
+            $table->dropForeign('equipos_user_id_foreign');
             $table->dropColumn('user_id');
         });
     }
