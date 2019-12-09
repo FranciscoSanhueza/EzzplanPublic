@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Estado;
 use App\Tipo;
 use App\User;
+use App\Departamento;
+
 
 class startTableSeeder extends Seeder
 {
@@ -48,6 +50,17 @@ class startTableSeeder extends Seeder
         $tipo->desc = "Tiene acceso a algunos de los mantenedores y usuarios";
         $tipo->save();
 
+        $tipo = new Tipo();
+        $tipo->nombre = "Articulo de oficina";
+        $tipo->desc = "Articulos presentes dentro de las oficinas";
+        $tipo->save();
+
+        $tipo = new Tipo();
+        $tipo->nombre = "Maquinaria industrial";
+        $tipo->desc = "Maquinaria pesada del tipo industrial";
+        $tipo->save();
+        
+
         //empresas
 
         $empresa = new Empresa();
@@ -56,6 +69,8 @@ class startTableSeeder extends Seeder
         $empresa->nacionalidad = "Chilena";
         $empresa->estado_id = 1;
         $empresa->save();
+
+
         //usuario
 
         $user = new User();
@@ -68,5 +83,12 @@ class startTableSeeder extends Seeder
         $user->estado_id = 1;
         $user->empresa_id = 1;
         $user->save();
+
+        $departamento = new Departamento();
+        $departamento->nombre = "Finanzas";
+        $departamento->desc = "Departamento encargado de las finanzas";
+        $departamento->estado_id = 1;
+        $departamento->user_id = 1;
+        $departamento->save();
     }
 }

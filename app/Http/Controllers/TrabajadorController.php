@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Trabajador;
 use App\Cargo;
 use Illuminate\Http\Request;
+use Malahierba\ChileRut\ChileRut;
+use Malahierba\ChileRut\Rules\ValidChileanRut;
 
 class TrabajadorController extends Controller
 {
@@ -59,7 +61,7 @@ class TrabajadorController extends Controller
     {
         //validacion
         $request->validate([
-            'run' => 'required|string|max:12',
+            'run' => ['required','string','max:12', new ValidChileanRut(new ChileRut)],
             'nombre' => 'required|string',
             'apellido' => 'required|string',
             'telefono' => 'nullable|digits_between: 8 , 9|starts_with:9',
@@ -119,7 +121,7 @@ class TrabajadorController extends Controller
     {
         //validacion
         $request->validate([
-            'run' => 'required|string|max:12',
+            'run' => ['required','string','max:12', new ValidChileanRut(new ChileRut)],
             'nombre' => 'required|string',
             'apellido' => 'required|string',
             'telefono' => 'nullable|digits_between: 8 , 9|starts_with:9',

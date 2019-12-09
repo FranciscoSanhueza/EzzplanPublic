@@ -17,10 +17,10 @@ class CreateFabricantesTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->text('desc');
-            $table->string('Origen');
-            $table->integer('telefono');
-            $table->string('Correo');
-            $table->string('Web');
+            $table->string('Origen')->nullable();
+            $table->integer('telefono')->nullable();
+            $table->string('Correo')->nullable();
+            $table->string('Web')->nullable();
             $table->timestamps();
         });
     }
