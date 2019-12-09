@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-8"></div>
     <div class="col-3">
-        <a class="btn btn-success" href="Insumos/create" role="button">+</a>
+    <a class="btn btn-success" href="{{ route('Insumos.create') }}" role="button"><i class="fas fa-plus"></i></a>
     </div>
 </div>
 <br/>
@@ -38,8 +38,8 @@
       <td>{{ $item->nombre }}</td>
       <td>{{ $item->desc }}</td>
       <td>
-      <a class="btn btn-info btn-sm" href="{{ route('Insumos.edit' , $item->id) }}" role="button">Modificar</a>
-      <a class="btn btn-danger btn-sm" href="#" onclick="Eliminar({{ $item->id }} , 'el Insumo')">Eliminar</a> 
+      <a class="btn btn-info btn-sm" href="{{ route('Insumos.edit' , $item->id) }}" role="button"><i class="fas fa-edit"></i></a>
+      <a class="btn btn-danger btn-sm" href="#" onclick="Eliminar('{{ route('Insumos.destroy', $item->id) }}' , 'el Insumo')"><i class="fas fa-trash-alt"></i></a> 
       </td>
     </tr>
     @endforeach

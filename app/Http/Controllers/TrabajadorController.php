@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Trabajador;
+use App\Cargo;
 use Illuminate\Http\Request;
 
 class TrabajadorController extends Controller
@@ -12,6 +13,16 @@ class TrabajadorController extends Controller
     {
         $this->middleware('auth');
     }
+
+    private function Combocargos(){
+        $user = auth()->user()->id;
+        return $cargos = Cargo::where([
+            ['user_id', '=', $user],
+            ['estado_id', '=', 1],
+        ])->get();
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +45,8 @@ class TrabajadorController extends Controller
      */
     public function create()
     {
-        return view('trabajador.insert');
+        $cargos = $this->Combocargos();
+        return view('trabajador.insert', compact('cargos'));
     }
 
     /**
@@ -63,9 +75,9 @@ class TrabajadorController extends Controller
         $trabajador->estado_id = 1;
         $trabajador->user_id = auth()->user()->id;
         $trabajador->save();
-
+        $cargos = $this->Combocargos();
         $msgInsert = "Ingresado Correctamente";
-        return  view('trabajador.insert', compact('msgInsert'));
+        return  view('trabajador.insert', compact('msgInsert' , 'cargos'));
     }
 
     /**
@@ -89,7 +101,8 @@ class TrabajadorController extends Controller
     {
         $trabajadored = Trabajador::FindOrFail($trabajador);
         if ($trabajadored->user_id == auth()->user()->id) {
-            return view('trabajador.edit', compact('trabajadored'));
+            $cargos = $this->Combocargos();
+            return view('trabajador.edit', compact('trabajadored' , 'cargos'));
         } else {
             return abort(404);
         }
@@ -120,9 +133,9 @@ class TrabajadorController extends Controller
         $trabajadored->telefono = $request->input("telefono");
         $trabajadored->cargo_id = $request->input("cargo");
         $trabajadored->save();
-
+        $cargos = $this->Combocargos();
         $msgInsert = "Actualizado Correctamente";
-        return  view('trabajador.edit', compact('msgInsert', 'trabajadored'));
+        return  view('trabajador.edit', compact('msgInsert', 'trabajadored' , 'cargos'));
     }
 
     /**

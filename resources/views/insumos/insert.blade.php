@@ -69,8 +69,8 @@
     @isset($msgInsert)
         @component('layouts.toast')
             @slot('tipo', 'success')
-            @slot('title', 'Insertado')
-            @slot('body' , 'Insumo insertado correctamente' ) 
+            @slot('title', 'Ingresado')
+            @slot('body' , 'Insumo Ingresado correctamente' ) 
         @endcomponent
     @endisset
 @endsection

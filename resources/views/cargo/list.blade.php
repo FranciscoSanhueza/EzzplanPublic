@@ -2,68 +2,72 @@
  @extends('layouts.intra')
 
  <!-- titulo del navegador -->
-@section('title','Control de Cargos')
+ @section('title','Control de Cargos')
 
  <!-- espacio para estilos -->
-@section('styles')
-    
-@endsection
+ @section('styles')
+
+ @endsection
 
  <!-- titulo de la pagina -->
-@section('title_content', 'Control de Cargos')
+ @section('title_content', 'Control de Cargos')
 
  <!-- contenido -->
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">{{ __('Ingreso de Insumos') }}</div>
-                <div class="card-body">
-                <form class="form-group" method="POST" action="{{ route('Insumos.store') }}">
-                        @csrf
-                            <div class="form-group row">
-                                <label for="txt_nombre" class="col-md-4 col-form-label text-md-right">Nombre</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control @error('txt_nombre') is-invalid @enderror" id="txt_nombre" name="txt_nombre" value="{{ old('txt_nombre') }}" required >
-                                    @error('txt_nombre')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+ @section('content')
+ <div class="row">
+     <div class="col-8"></div>
+     <div class="col-3">
+         <a class="btn btn-success" href="cargos/create" role="button"><i class="fas fa-plus"></i></a>
+     </div>
+ </div>
+ <br />
+ <table class="table" id="dtb">
+     <thead>
+         <tr>
+             <th scope="col">id</th>
+             <th scope="col">Nombre</th>
+             <th scope="col">Funcion</th>
+             <th scope="col">Acciones</th>
+         </tr>
+     </thead>
+     <tbody>
 
-                            <div class="form-group row">
-                                    <label for="txt_descripcion" class="col-md-4 col-form-label text-md-right">Descripcion</label>
-                                    <div class="col-md-7">
-                                        <textarea class="form-control @error('txt_descripcion') is-invalid @enderror" id="txt_descripcion" name="txt_descripcion" rows="3" required > {{ old('txt_descripcion') }} </textarea>
-                                    
-                                    @error('txt_descripcion')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>    
-                            </div>
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-8">
-                                    <button type="submit" class="btn btn-primary rigth">Registrar</button>
-                                </div>       
-                            </div>
-                        </form>
-                        <br/>
+         @foreach ($cargo as $item)
+         <tr>
+             <th scope="row">{{ $item->id }}</th>
+             <td>{{ $item->nombre }}</td>
+             <td>{{ $item->funcion }}</td>
+             <td>
+                 <a class="btn btn-info btn-sm" href="{{ route('cargos.edit' , $item->id) }}"
+                     role="button"><i class="fas fa-edit"></i></a>
+                 <a class="btn btn-danger btn-sm" href="#"
+                     onclick="Eliminar('{{ route('cargos.destroy', $item->id) }}', 'el Cargo');"><i class="fas fa-trash-alt"></i></a>
+             </td>
+         </tr>
+         @endforeach
+     </tbody>
+ </table>
 
-                       
-                        
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+
+ <form id="delete-form" action="" class="d-inline" method="POST" style="display: none;">
+     @method('DELETE')
+     @csrf
+ </form>
+ @endsection
 
  <!-- scripts -->
-@section('js')
-    
-@endsection
+ @section('js')
+ @if (session('msj'))
+    @component('layouts.toast')
+      @slot('tipo', 'success')
+      @slot('title', 'Eliminado')
+      @slot('body' , session('msj'))
+    @endcomponent
+  @endif
+
+  <script>
+    $(document).ready( function () {
+    $('#dtb').DataTable();
+    } );
+  </script>
+ @endsection

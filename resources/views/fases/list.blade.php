@@ -17,11 +17,11 @@
 <div class="row">
         <div class="col-8"></div>
         <div class="col-3">
-            <a class="btn btn-success" href="fases/create" role="button">+</a>
+            <a class="btn btn-success" href="fases/create" role="button"><i class="fas fa-plus"></i></a>
         </div>
     </div>
     <br/>
-    <table class="table">
+    <table class="table" id="dtb">
       <thead>
         <tr>
           <th scope="col">id</th>
@@ -37,8 +37,8 @@
           <td>{{ $item->nombre }}</td>
           <td>{{ $item->desc }}</td>
           <td>
-          <a class="btn btn-info btn-sm" href="{{ route('fases.edit' , $item->id) }}" role="button">Modificar</a>
-          <a class="btn btn-danger btn-sm" href="#" onclick="Eliminar({{ $item->id }} , 'la fase')">Eliminar</a> 
+          <a class="btn btn-info btn-sm" href="{{ route('fases.edit' , $item->id) }}" role="button"><i class="fas fa-edit"></i></a>
+          <a class="btn btn-danger btn-sm" href="#" onclick="Eliminar('{{ route('fases.destroy', $item->id) }}' , 'la fase')"><i class="fas fa-trash-alt"></i></a> 
           
           </td>
         </tr>
@@ -61,4 +61,9 @@
       @slot('body' , session('msj'))
     @endcomponent
   @endif
+  <script>
+    $(document).ready( function () {
+    $('#dtb').DataTable();
+    } );
+  </script>
 @endsection

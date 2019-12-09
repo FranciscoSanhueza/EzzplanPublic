@@ -53,7 +53,7 @@ class FabricanteController extends Controller
             'origen' => 'nullable|string',
             'telefono' => 'nullable|digits_between: 8 , 9|starts_with:9',
             'correo' => 'nullable|email',
-            'web' => 'nullable|url',
+            'web' => 'nullable|string',
         ]);
         //obtenemos datos del request
         $fabricante = new Fabricante();
@@ -115,7 +115,7 @@ class FabricanteController extends Controller
             'origen' => 'nullable|string',
             'telefono' => 'nullable|digits_between: 8 , 9|starts_with:9',
             'correo' => 'nullable|email',
-            'web' => 'nullable|url',
+            'web' => 'nullable|string',
         ]);
         //obtenemos datos del request
         $fabricanteed = Fabricante::FindOrFail($fabricante);

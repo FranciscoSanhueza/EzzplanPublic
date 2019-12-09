@@ -10,7 +10,7 @@ function Eliminar(id, obj) {
     }).then((result) => {
         if (result.value) {
             var f = document.forms['delete-form'];
-            f.action = "/Insumos/" + id;
+            f.action = id;
             f.submit(); //envía el form
         }
     })
