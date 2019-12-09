@@ -51,6 +51,6 @@ class ValidChileanRut implements Rule
      */
     public function message()
     {
-        return 'The :attribute is not valid.';
+        return 'El :attribute no es valido';
     }
 }
