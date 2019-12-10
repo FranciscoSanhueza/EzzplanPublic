@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::get('register', 'Auth\RegisterController@ReturnViewRegistro')->name('register');
 
+Route::resource('users', 'UserController');
+
 Auth::routes();
 
 Route::resource('fases', 'faseController');

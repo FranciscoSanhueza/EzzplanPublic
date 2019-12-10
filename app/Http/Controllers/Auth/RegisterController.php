@@ -28,6 +28,9 @@ class RegisterController extends Controller
         $empresas = Empresa::all();
         return  view('auth.register', compact('empresas'));
     }
+
+   
+
     use RegistersUsers;
 
     /**

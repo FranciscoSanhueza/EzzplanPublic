@@ -1,11 +1,22 @@
+<!-- extiende de intra -->
 @extends('layouts.intra')
 
+<!-- titulo del navegador -->
+@section('title','Control de Usuarios')
+
+<!-- espacio para estilos -->
+@section('styles')
+   
+@endsection
+
+<!-- titulo de la pagina -->
+@section('title_content', 'Registro de usuarios')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Registro') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -119,4 +130,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+<!-- scripts -->
+@section('js')
+
 @endsection

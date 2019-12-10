@@ -101,7 +101,7 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="{{ route('register') }}">
+              <a class="dropdown-item" href="{{ route('users.edit' , auth()->user()->id) }}">
                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                 Editar informacion
               </a>
