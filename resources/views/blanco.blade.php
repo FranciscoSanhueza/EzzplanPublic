@@ -2,15 +2,18 @@
  @extends('layouts.intra')
 
  <!-- titulo del navegador -->
-@section('title','Control de Fases')
+@section('title','Prueba calendario')
 
  <!-- espacio para estilos -->
 @section('styles')
-    
+    <link href='fullcalendar/core/main.css' rel='stylesheet' />
+    <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
+
+
 @endsection
 
  <!-- titulo de la pagina -->
-@section('title_content', 'Control de Fases')
+@section('title_content', 'Prueba calendario')
 
  <!-- contenido -->
 @section('content')
@@ -19,5 +22,6 @@
 
  <!-- scripts -->
 @section('js')
-    
+    <script src='fullcalendar/core/main.js'></script>
+    <script src='fullcalendar/daygrid/main.js'></script>
 @endsection
