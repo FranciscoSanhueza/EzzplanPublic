@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('blanco');
+});
+
 Route::get('register', 'Auth\RegisterController@ReturnViewRegistro')->name('register');
 
 Route::resource('users', 'UserController');
