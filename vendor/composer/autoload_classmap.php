@@ -27,6 +27,7 @@ return array(
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\InsumosController' => $baseDir . '/app/Http/Controllers/InsumosController.php',
     'App\\Http\\Controllers\\TrabajadorController' => $baseDir . '/app/Http/Controllers/TrabajadorController.php',
+    'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Controllers\\faseController' => $baseDir . '/app/Http/Controllers/faseController.php',
     'App\\Http\\Controllers\\mantencionController' => $baseDir . '/app/Http/Controllers/mantencionController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',

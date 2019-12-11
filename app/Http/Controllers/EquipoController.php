@@ -48,6 +48,7 @@ class EquipoController extends Controller
      */
     public function index()
     {
+        
         $user = auth()->user()->id;
         $equipo = Equipo::where([
             ['user_id', '=', $user],

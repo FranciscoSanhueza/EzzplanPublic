@@ -90,5 +90,7 @@ class startTableSeeder extends Seeder
         $departamento->estado_id = 1;
         $departamento->user_id = 1;
         $departamento->save();
+        
+
     }
 }
