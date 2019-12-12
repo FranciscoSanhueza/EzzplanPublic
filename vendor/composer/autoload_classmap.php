@@ -41,6 +41,7 @@ return array(
     'App\\Http\\Requests\\StoreInsumoRequest' => $baseDir . '/app/Http/Requests/StoreInsumoRequest.php',
     'App\\Insumo' => $baseDir . '/app/Insumo.php',
     'App\\Mantencion' => $baseDir . '/app/Mantencion.php',
+    'App\\Prioridad' => $baseDir . '/app/Prioridad.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

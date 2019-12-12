@@ -427,6 +427,7 @@ class ComposerStaticInit8b1e81f1c8c880d559cd70da32b7b1e5
         'App\\Http\\Requests\\StoreInsumoRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreInsumoRequest.php',
         'App\\Insumo' => __DIR__ . '/../..' . '/app/Insumo.php',
         'App\\Mantencion' => __DIR__ . '/../..' . '/app/Mantencion.php',
+        'App\\Prioridad' => __DIR__ . '/../..' . '/app/Prioridad.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

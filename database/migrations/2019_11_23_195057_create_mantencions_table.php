@@ -17,8 +17,8 @@ class CreateMantencionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('Nombre');
             $table->text('desc');
-            $table->dateTime('fecha');
-
+            $table->dateTime('fechai');
+            $table->dateTime('fechaf');
             $table->unsignedBigInteger('responsable_id'); // Relación con tipo
             $table->foreign('responsable_id')->references('id')->on('trabajadors'); // clave foranea
 
