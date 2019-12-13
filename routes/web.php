@@ -19,6 +19,12 @@ Route::get('/test', function () {
     return view('blanco');
 });
 
+Route::get('/bd', function () {
+	$exitCode = Artisan::call('migrate:fresh', [
+    		'--seed' => true,
+	]);
+    });
+
 Route::get('/man' , 'mantencionController@calendario')->name('calendar');
 
 Route::get('register', 'Auth\RegisterController@ReturnViewRegistro')->name('register');

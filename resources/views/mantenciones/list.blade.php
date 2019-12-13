@@ -37,11 +37,11 @@
 
 <!-- scripts -->
 @section('js')
-   <script src="{{ asset('js/fullcalendar/core/main.js') }}"></script>
-   <script src="{{ asset('js/fullcalendar/daygrid/main.js') }}"></script>
-   <script src="{{ asset('js/fullcalendar/interaction/main.js') }}"></script>
-   <script src="{{ asset('js/fullcalendar/timeGrid/main.js') }}"></script>
-   <script src="{{ asset('js/fullcalendar/bootstrap/main.js') }}"></script>
+   <script src="{{ asset('js\fullcalendar\core\main.js') }}"></script>
+   <script src="{{ asset('js\fullcalendar\daygrid\main.js') }}"></script>
+   <script src="{{ asset('js\fullcalendar\interaction\main.js') }}"></script>
+   <script src="{{ asset('js\fullcalendar\timeGrid\main.js') }}"></script>
+   <script src="{{ asset('js\fullcalendar\bootstrap\main.js') }}"></script>
    <script src="{{ asset('js\fullcalendar\core\locales\es.js') }}"></script>
    <script src="{{ asset('js\calendar.js') }}"></script>
 @endsection
