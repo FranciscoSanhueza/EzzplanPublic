@@ -19,6 +19,8 @@ Route::get('/test', function () {
     return view('blanco');
 });
 
+Route::get('/man' , 'mantencionController@calendario')->name('calendar');
+
 Route::get('register', 'Auth\RegisterController@ReturnViewRegistro')->name('register');
 
 Route::resource('users', 'UserController');

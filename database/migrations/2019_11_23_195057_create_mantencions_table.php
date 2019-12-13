@@ -15,10 +15,10 @@ class CreateMantencionsTable extends Migration
     {
         Schema::create('mantencions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('Nombre');
+            $table->string('title');
             $table->text('desc');
-            $table->dateTime('fechai');
-            $table->dateTime('fechaf');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->unsignedBigInteger('responsable_id'); // Relación con tipo
             $table->foreign('responsable_id')->references('id')->on('trabajadors'); // clave foranea
 

@@ -160,10 +160,33 @@ class startTableSeeder extends Seeder
         //mantencion
 
         $mantencion = new Mantencion();
-        $mantencion->Nombre = "Reemplazo de hoja";
+        $mantencion->title = "Reemplazo de hoja";
         $mantencion->desc = "Reemplazo de la hoja cortadora en la fila de proceso 2";
-        $mantencion->fechai = '2019-12-10 14:00:00';
-        $mantencion->fechaf = '2019-12-11 14:00:00';
+        $mantencion->start = '2019-12-10 14:00:00';
+        $mantencion->end = '2019-12-11 14:00:00';
+        $mantencion->responsable_id = 2;
+        $mantencion->planificador_id = 1;
+        $mantencion->estado_id = 1;
+        $mantencion->prioridad_id = 2;
+        $mantencion->save();
+
+
+        $mantencion = new Mantencion();
+        $mantencion->title = "Reemplazo de cardan";
+        $mantencion->desc = "Reemplazo del cardan camion 2";
+        $mantencion->start = '2019-12-20 10:00:00';
+        $mantencion->end = '2019-12-20 16:00:00';
+        $mantencion->responsable_id = 2;
+        $mantencion->planificador_id = 1;
+        $mantencion->estado_id = 1;
+        $mantencion->prioridad_id = 2;
+        $mantencion->save();
+
+        $mantencion = new Mantencion();
+        $mantencion->title = "Destruccion planta";
+        $mantencion->desc = "Destruccion de la planta";
+        $mantencion->start = '2019-12-28 8:00:00';
+        $mantencion->end = '2019-12-29 17:00:00';
         $mantencion->responsable_id = 2;
         $mantencion->planificador_id = 1;
         $mantencion->estado_id = 1;
