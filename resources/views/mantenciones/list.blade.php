@@ -8,7 +8,7 @@
 @section('styles')
    <link href= "{{ asset('js/fullcalendar/core/main.css') }} " rel='stylesheet' />
    <link href="{{ asset('js/fullcalendar/daygrid/main.css') }}" rel='stylesheet' />
-   <link href="{{ asset('js/fullcalendar/timeGrid/main.css') }}" rel='stylesheet' />
+   <link href="{{ asset('js/fullcalendar/timegrid/main.css') }}" rel='stylesheet' />
    <link href="{{ asset('js/fullcalendar/bootstrap/main.css') }}" rel='stylesheet' />
 
 @endsection
@@ -40,7 +40,7 @@
    <script src="{{ asset('js\fullcalendar\core\main.js') }}"></script>
    <script src="{{ asset('js\fullcalendar\daygrid\main.js') }}"></script>
    <script src="{{ asset('js\fullcalendar\interaction\main.js') }}"></script>
-   <script src="{{ asset('js\fullcalendar\timeGrid\main.js') }}"></script>
+   <script src="{{ asset('js\fullcalendar\timegrid\main.js') }}"></script>
    <script src="{{ asset('js\fullcalendar\bootstrap\main.js') }}"></script>
    <script src="{{ asset('js\fullcalendar\core\locales\es.js') }}"></script>
    <script src="{{ asset('js\calendar.js') }}"></script>

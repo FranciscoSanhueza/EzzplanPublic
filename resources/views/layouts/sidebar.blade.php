@@ -13,7 +13,7 @@
   
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-          <a class="nav-link" href="mantenciones">
+        <a class="nav-link" href="{{ route('mantenciones.index') }}">
             <i class="fas fa-fw fa-calendar-day"></i>
             <span>Mantenciones</span></a>
         </li>
