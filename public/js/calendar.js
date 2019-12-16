@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dateClick: function (info) {
             cargarModalI(info);
         },
-        events: "http://127.0.0.1:8000/man",
+        events: "/man",
         eventClick: function (info) {
             cargarModalE(info);
         }
@@ -35,40 +35,69 @@ $('#btn_insert').click(function () {
         dataType: 'json',
         data: datos,
 
-        success: function () {
-            toastr.success('Mantencion ingresada Correctamente', 'Registrado', {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-bottom-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            });
+        success: function (msj) {
+            console.log(msj);
+            toastM(1, msj.desc, msj.title);
             $("#insertModal").modal('toggle');
             limpiar();
+        },
+        error: function (error) {
+            console.log(error);
+            arrError = error.responseJSON.errors;
+            for (var i in arrError) {
+                toastM(2, arrError[i], "Error al Ingresar");
+            }
         }
     });
 });
 
+function pasoSelect(desde, hasta) {
+    var an = document.getElementById(desde);
+    var nombre = an.options[an.selectedIndex].text;
+    var valor = an.value;
+    $("#" + desde).find("option[value='" + valor + "']").remove();
+    $("#" + hasta).append('<option value="' + valor + '">' + nombre + '</option>');
+}
 
+
+function selecall() {
+    var an = document.getElementById('nextFases');
+    for (var i = 0; i < an.length; i++) {
+        an.options[i].selected = true;
+    }
+    var bn = document.getElementById('nextEquipos');
+    for (var i = 0; i < bn.length; i++) {
+        bn.options[i].selected = true;
+    }
+    var cn = document.getElementById('nextTrabajadores');
+    for (var i = 0; i < cn.length; i++) {
+        cn.options[i].selected = true;
+    }
+    var dn = document.getElementById('nextInsumos');
+    for (var i = 0; i < dn.length; i++) {
+        dn.options[i].selected = true;
+    }
+}
 
 function dataFormInsert() {
+    selecall();
+    var fases = $("#nextFases").val();
+    var equipos = $("#nextEquipos").val();
+    var trabajadores = $("#nextTrabajadores").val();
+    var insumos = $("#nextInsumos").val();
     datos = {
         'title': $('#title').val(),
         'desc': $('#desc').val(),
         'start': $('#start').val(),
         'startH': $('#startH').val(),
         'end': $('#end').val(),
-        'endH': $('#endH').val()
+        'endH': $('#endH').val(),
+        'fases': fases,
+        'equipos': equipos,
+        'trabajadores': trabajadores,
+        'insumos': insumos,
+        'prioridad': $('#prioridad').val(),
+        'id': $('#responsable').val()
     }
     return datos;
 }
@@ -140,3 +169,77 @@ function cargarModalI(info) {
     //mostrar modal
     $("#insertModal").modal();
 }
+
+
+function toastM(tipo, desc, title) {
+    if (tipo == 1) {
+        toastr.success(desc, title, {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        });
+    } else if (tipo == 2) {
+        toastr.error(desc, title, {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        });
+    }
+
+}
+
+document.getElementById("previusFases").addEventListener("change", function () {
+    pasoSelect("previusFases", "nextFases");
+});
+
+document.getElementById("nextFases").addEventListener("change", function () {
+    pasoSelect("nextFases", "previusFases");
+});
+
+document.getElementById("previusEquipos").addEventListener("change", function () {
+    pasoSelect("previusEquipos", "nextEquipos");
+});
+
+document.getElementById("nextEquipos").addEventListener("change", function () {
+    pasoSelect("nextEquipos", "previusEquipos");
+});
+
+document.getElementById("previusTrabajadores").addEventListener("change", function () {
+    pasoSelect("previusTrabajadores", "nextTrabajadores");
+});
+
+document.getElementById("nextTrabajadores").addEventListener("change", function () {
+    pasoSelect("nextTrabajadores", "previusTrabajadores");
+});
+
+document.getElementById("previusInsumos").addEventListener("change", function () {
+    pasoSelect("previusInsumos", "nextInsumos");
+});
+
+document.getElementById("nextInsumos").addEventListener("change", function () {
+    pasoSelect("nextInsumos", "previusInsumos");
+});

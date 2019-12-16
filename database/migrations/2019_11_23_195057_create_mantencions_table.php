@@ -20,7 +20,7 @@ class CreateMantencionsTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->unsignedBigInteger('responsable_id'); // Relación con tipo
-            $table->foreign('responsable_id')->references('id')->on('trabajadors'); // clave foranea
+            $table->foreign('responsable_id')->references('id')->on('users'); // clave foranea
 
             $table->unsignedBigInteger('planificador_id'); // Relación con tipo
             $table->foreign('planificador_id')->references('id')->on('users'); // clave foranea

@@ -26,7 +26,34 @@
 
 
 @component('mantenciones.layouts.insertModal')
-   
+   @slot('fasesOption')
+      @foreach ($fases as $item)
+         <option value="{{ $item->id }}">{{$item->nombre}}</option>
+      @endforeach
+   @endslot
+
+   @slot('equiposOption')
+      @foreach ($equipos as $item)
+         <option value="{{ $item->id }}">{{$item->nombre}}</option>
+      @endforeach
+   @endslot
+
+   @slot('trabajadoresOption')
+      @foreach ($trabajadores as $item)
+         <option value="{{ $item->id }}">{{$item->nombre}}</option>
+      @endforeach
+   @endslot
+
+   @slot('insumosOption')
+      @foreach ($insumos as $item)
+         <option value="{{ $item->id }}">{{$item->nombre}}</option>
+      @endforeach
+   @endslot
+   @slot('responsableOption')
+      @foreach ($responsables as $item)
+         <option value="{{ $item->id }}">{{$item->name." ".$item->apellido}}</option>
+      @endforeach
+   @endslot
 @endcomponent
 
 @component('mantenciones.layouts.editModal')

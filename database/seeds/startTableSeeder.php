@@ -89,6 +89,13 @@ class startTableSeeder extends Seeder
         $empresa->estado_id = 1;
         $empresa->save();
 
+        $empresa = new Empresa();
+        $empresa->nombre = "Inacap";
+        $empresa->giro = "Educacion";
+        $empresa->nacionalidad = "Chilena";
+        $empresa->estado_id = 1;
+        $empresa->save();
+
 
         //usuario
 
@@ -98,6 +105,28 @@ class startTableSeeder extends Seeder
         $user->apellido = "Sanhueza";
         $user->email = "can@ezzplan.com";
         $user->password = Hash::make('12345678');
+        $user->tipo_id = 1;
+        $user->estado_id = 1;
+        $user->empresa_id = 1;
+        $user->save();
+
+        $user = new User();
+        $user->run = "10146527-6";
+        $user->name = "Jose";
+        $user->apellido = "Sanhueza";
+        $user->email = "j.sanhueza@gmail.com";
+        $user->password = Hash::make('1qazxsw2');
+        $user->tipo_id = 1;
+        $user->estado_id = 1;
+        $user->empresa_id = 2;
+        $user->save();
+
+        $user = new User();
+        $user->run = "19555555-2";
+        $user->name = "Carlos";
+        $user->apellido = "Molina";
+        $user->email = "cmolina@ezzplan.com";
+        $user->password = Hash::make('1qazxsw2');
         $user->tipo_id = 1;
         $user->estado_id = 1;
         $user->empresa_id = 1;
@@ -164,7 +193,7 @@ class startTableSeeder extends Seeder
         $mantencion->desc = "Reemplazo de la hoja cortadora en la fila de proceso 2";
         $mantencion->start = '2019-12-10 14:00:00';
         $mantencion->end = '2019-12-11 14:00:00';
-        $mantencion->responsable_id = 2;
+        $mantencion->responsable_id = 1;
         $mantencion->planificador_id = 1;
         $mantencion->estado_id = 1;
         $mantencion->prioridad_id = 2;
@@ -176,7 +205,7 @@ class startTableSeeder extends Seeder
         $mantencion->desc = "Reemplazo del cardan camion 2";
         $mantencion->start = '2019-12-20 10:00:00';
         $mantencion->end = '2019-12-20 16:00:00';
-        $mantencion->responsable_id = 2;
+        $mantencion->responsable_id = 1;
         $mantencion->planificador_id = 1;
         $mantencion->estado_id = 1;
         $mantencion->prioridad_id = 2;
@@ -187,7 +216,7 @@ class startTableSeeder extends Seeder
         $mantencion->desc = "Destruccion de la planta";
         $mantencion->start = '2019-12-28 8:00:00';
         $mantencion->end = '2019-12-29 17:00:00';
-        $mantencion->responsable_id = 2;
+        $mantencion->responsable_id = 1;
         $mantencion->planificador_id = 1;
         $mantencion->estado_id = 1;
         $mantencion->prioridad_id = 2;

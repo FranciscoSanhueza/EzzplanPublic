@@ -9,7 +9,7 @@ class Mantencion extends Model
 
     //relaciones uno a muchos
     public function Responsable(){ //Relacion Mantencion-> Trabajador
-        return $this->belongsTo(Trabajador::class); //tiene un Trabajador.
+        return $this->belongsTo(User::class); //tiene un Trabajador.
     }
 
     public function planificador(){ //Relacion Mantencion-> User
@@ -23,15 +23,15 @@ class Mantencion extends Model
     //relaciones muchos a muchos
 
     public function fases(){
-        return $this->belongsToMany(Fase::class); // Muchos a muchos
+        return $this->belongsToMany(Fase::class)->withPivot('estado_id')->withTimestamps(); // Muchos a muchos
     }
     public function insumos(){
-        return $this->belongsToMany(Insumo::class); // Muchos a muchos
+        return $this->belongsToMany(Insumo::class)->withTimestamps(); // Muchos a muchos
     }
     public function equipos(){
-        return $this->belongsToMany(Equipo::class); // Muchos a muchos
+        return $this->belongsToMany(Equipo::class)->withTimestamps(); // Muchos a muchos
     }
     public function trabajadores(){
-        return $this->belongsToMany(Trabajador::class); // Muchos a muchos
+        return $this->belongsToMany(Trabajador::class)->withTimestamps(); // Muchos a muchos
     }
 }
