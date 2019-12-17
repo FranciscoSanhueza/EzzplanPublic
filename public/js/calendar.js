@@ -39,6 +39,7 @@ $('#btn_insert').click(function () {
             console.log(msj);
             toastM(1, msj.desc, msj.title);
             $("#insertModal").modal('toggle');
+            calendarEl.FullCalendar();
             limpiar();
         },
         error: function (error) {
@@ -182,9 +183,9 @@ function toastM(tipo, desc, title) {
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",
-            "hideDuration": "1000",
+            "hideDuration": "5000",
             "timeOut": "5000",
-            "extendedTimeOut": "1000",
+            "extendedTimeOut": "5000",
             "showEasing": "swing",
             "hideEasing": "linear",
             "showMethod": "fadeIn",
@@ -200,9 +201,9 @@ function toastM(tipo, desc, title) {
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",
-            "hideDuration": "1000",
+            "hideDuration": "5000",
             "timeOut": "5000",
-            "extendedTimeOut": "1000",
+            "extendedTimeOut": "5000",
             "showEasing": "swing",
             "hideEasing": "linear",
             "showMethod": "fadeIn",

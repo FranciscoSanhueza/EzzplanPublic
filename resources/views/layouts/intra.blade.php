@@ -109,6 +109,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
   <script src="{{ asset('js/util.js') }}"></script>
+
+  <script>
+
+    $(document).ready( function () {
+      $("body").toggleClass("sidebar-toggled");
+      $(".sidebar").toggleClass("toggled");
+    } );
+
+  </script>
   @yield('js')
 
 </body>

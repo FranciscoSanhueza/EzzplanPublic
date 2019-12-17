@@ -25,21 +25,30 @@ class mantencionRequest extends FormRequest
     public function rules()
     {
         return [
-                'title' => 'required|string',
-                'desc' => 'required|string|',
-                'start' => 'required',
-                'startH' => 'required',
-                'end' => 'required',
-                'endH' => 'required',
-                'id' => 'required|numeric|exists:users,id',
-                'prioridad' => 'required|numeric|between:1,3|exists:prioridads,id',
+                'title' => ['required','string'],
+                'desc' => ['required','string'],
+                'start' => ['required'],
+                'startH' => ['required'],
+                'end' => ['required'],
+                'endH' => ['required'],
+                'id' => ['required','numeric','exists:users,id'],
+                'prioridad' => ['required','numeric','between:1,3','exists:prioridads,id'],
                 'id' => Rule::exists('users')->where(function ($query) {
                     return $query->where('empresa_id', auth()->user()->empresa->id);
                 }),
-                'fases' => 'required',
-                'equipos' => 'required',
-                'trabajadores' => 'required',
-                'insumos' => 'required',
+                'fases' => [
+                    'required',
+                    'exists:fases,id',
+                ],
+                'equipos' => ['required',
+                    'exists:equipos,id'
+                ],
+                'trabajadores' => ['required',
+                'exists:trabajadors,id'
+                ],
+                'insumos' => ['required',
+                'exists:insumos,id'
+                ],
         ];
     }
 
@@ -58,6 +67,7 @@ class mantencionRequest extends FormRequest
             'id.required' => 'El campo Encargado es obligatorio.',
             'id.numeric' => 'El campo Encargado debe ser numerico.',
             'prioridad.between' => 'Prioridad no encontrada',
+
         ];
     }
 }
