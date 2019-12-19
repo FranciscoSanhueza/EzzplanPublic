@@ -156,7 +156,7 @@ class mantencionController extends Controller
      * @param  \App\Mantencion  $mantencion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $mantencionid)
+    public function update(mantencionRequest $request, $mantencionid)
     {
         $user = auth()->user();
         if($request->ajax()){
