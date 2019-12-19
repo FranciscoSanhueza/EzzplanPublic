@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('publicviews.index');
+})->name('raiz');
+
+Route::get('/contacto', function () {
+    return view('publicviews.contactamos');
+})->name('contacto');
 
 Route::get('/test', function () {
     return view('blanco');
@@ -37,7 +41,7 @@ Route::resource('fases', 'faseController');
 
 Route::resource('mantenciones', 'mantencionController');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'mantencionController@index')->name('home');
 
 Route::resource('Insumos', 'InsumosController');
 
