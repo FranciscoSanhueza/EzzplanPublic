@@ -133,16 +133,16 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="end" class="col-md-2 col-form-label text-md-right">Existentes</label>
+                                <label for="previusFases" class="col-md-2 col-form-label text-md-right">Existentes</label>
                                 <div class="col-md-4">
-                                    <select class="custom-select" size="6" id="previusFases">
+                                    <select class="custom-select" size="6" id="previusFases" name="previusFases">
                                         {{$fasesOption}}
                                     </select>
                                 </div>
 
-                                <label for="end" class="col-md-1 col-form-label text-md-right">-></label>
+                                <label for="nextFases" class="col-md-1 col-form-label text-md-right">-></label>
                                 <div class="col-md-4">
-                                    <select class="custom-select" multiple size="6" id="nextFases">
+                                    <select class="custom-select" multiple size="6" id="nextFases" name="nextFases">
 
                                     </select>
                                 </div>
@@ -156,16 +156,16 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="end" class="col-md-2 col-form-label text-md-right">Existentes</label>
+                                <label for="previusEquipos" class="col-md-2 col-form-label text-md-right">Existentes</label>
                                 <div class="col-md-4">
-                                    <select class="custom-select" size="6" id="previusEquipos">
+                                    <select class="custom-select" size="6" id="previusEquipos" name="previusEquipos">
                                         {{$equiposOption}}
                                     </select>
                                 </div>
 
-                                <label for="end" class="col-md-1 col-form-label text-md-right">-></label>
+                                <label for="nextEquipos" class="col-md-1 col-form-label text-md-right">-></label>
                                 <div class="col-md-4">
-                                    <select class="custom-select" multiple size="6" id="nextEquipos">
+                                    <select class="custom-select" multiple size="6" id="nextEquipos" name="nextEquipos">
 
                                     </select>
                                 </div>
@@ -179,16 +179,16 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="end" class="col-md-2 col-form-label text-md-right">Existentes</label>
+                                <label for="previusTrabajadores" class="col-md-2 col-form-label text-md-right">Existentes</label>
                                 <div class="col-md-4">
-                                    <select class="custom-select" size="6" id="previusTrabajadores">
+                                    <select class="custom-select" size="6" id="previusTrabajadores" name="previusTrabajadores">
                                         {{$trabajadoresOption}}
                                     </select>
                                 </div>
 
-                                <label for="end" class="col-md-1 col-form-label text-md-right">-></label>
+                                <label for="nextTrabajadores" class="col-md-1 col-form-label text-md-right">-></label>
                                 <div class="col-md-4">
-                                    <select class="custom-select" multiple size="6" id="nextTrabajadores">
+                                    <select class="custom-select" multiple size="6" id="nextTrabajadores" name="nextTrabajadores">
 
                                     </select>
                                 </div>
@@ -202,16 +202,16 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="end" class="col-md-2 col-form-label text-md-right">Existentes</label>
+                                <label for="previusInsumos" class="col-md-2 col-form-label text-md-right">Existentes</label>
                                 <div class="col-md-4">
-                                    <select class="custom-select" size="6" id="previusInsumos">
+                                    <select class="custom-select" size="6" id="previusInsumos" name="previusInsumos">
                                         {{$insumosOption}}
                                     </select>
                                 </div>
 
-                                <label for="end" class="col-md-1 col-form-label text-md-right">-></label>
+                                <label for="nextInsumos" class="col-md-1 col-form-label text-md-right">-></label>
                                 <div class="col-md-4">
-                                    <select class="custom-select" multiple size="6" id="nextInsumos">
+                                    <select class="custom-select" multiple size="6" id="nextInsumos" name="nextInsumos">
 
                                     </select>
                                 </div>

@@ -37,7 +37,11 @@ class mantencionController extends Controller
     }
 
     public function calendario(){
-        $mantenciones = Mantencion::all();
+        $user = auth()->user()->id;
+        $mantenciones = Mantencion::where([
+            ['planificador_id', '=', $user],
+            ['estado_id', '=', 1],
+        ])->get();
         return $mantenciones;
     }
 
@@ -90,8 +94,15 @@ class mantencionController extends Controller
                 $mantencionFind->insumos()->attach( $insumos[$i] );
             }
             return response()->json([
+                "tipo" => 1,
                 "title" => "Registrado",
                 "desc" => "Ingresado Correctamente"
+            ]);
+        }else{
+            return response()->json([
+                "tipo" => 2,
+                "title" => "Error ajax",
+                "desc" => "Solo se permiten envios de tipo ajax"
             ]);
         }
         
@@ -103,9 +114,28 @@ class mantencionController extends Controller
      * @param  \App\Mantencion  $mantencion
      * @return \Illuminate\Http\Response
      */
-    public function show(Mantencion $mantencion)
+    public function show($mantencion)
     {
-        //
+            $user = auth()->user();
+            $mantencionF = Mantencion::findorfail($mantencion);
+            $planificador = $mantencionF->planificador;
+            if($planificador->empresa_id == $user->empresa_id){
+                $fases = $mantencionF->fases;
+                $equipos = $mantencionF->equipos;
+                $trabajadores = $mantencionF->trabajadores;
+                $insumos = $mantencionF->insumos;
+                return response()->json([
+                    "core" => $mantencionF
+                ]);
+            }else{
+                return response()->json([
+                    "tipo" => 2,
+                    "title" => "No se registra",
+                    "desc" => "Mantencion no encontrada"
+                ]);
+            }
+      
+        
     }
 
     /**
@@ -126,9 +156,65 @@ class mantencionController extends Controller
      * @param  \App\Mantencion  $mantencion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mantencion $mantencion)
+    public function update(Request $request, $mantencionid)
     {
-        //
+        $user = auth()->user();
+        if($request->ajax()){
+            //core
+            $mantencion = Mantencion::findOrFail($mantencionid);
+            $mantencion->title = $request->input('title');
+            $mantencion->desc = $request->input('desc');
+            $mantencion->start = $request->input('start')." ".$request->input('startH');
+            $mantencion->end = $request->input('end')." ".$request->input('endH');
+            $mantencion->responsable_id = $request->input('id');
+            $mantencion->planificador_id = $user->id;
+            $mantencion->estado_id = 1;
+            $mantencion->prioridad_id = $request->input('prioridad');
+            $mantencion->save();
+            //core actualizado
+            //intermedias
+            $cod = $mantencion->id;
+            $mantencionFind = Mantencion::find($cod); 
+            //actuliaza fases de la mantencion
+            $fases = $request->input('fases');
+            $fasesid = [];
+            for ($i=0; $i < count($fases) ; $i++) { 
+                $fasesid[] = $fases[$i];
+            }
+            $mantencionFind->fases()->sync( $fases);
+            $equiposid = [];
+            //actuliaza equipos de la mantencion
+            $equipos = $request->input('equipos');
+            for ($i=0; $i < count($equipos) ; $i++) { 
+                $equiposid[] = $equipos[$i];
+            }
+            $mantencionFind->equipos()->sync( $equiposid);
+            //actuliaza Tranajadores de la mantencion
+            $trabajadores = $request->input('trabajadores');
+            $trabajadoresid = [];
+            for ($i=0; $i < count($trabajadores) ; $i++) { 
+                $trabajadoresid[] = $trabajadores[$i];
+            }
+            $mantencionFind->trabajadores()->sync( $trabajadoresid);
+            //actuliaza insumos de la mantencion
+            $insumos = $request->input('insumos');
+            $insumosid = [];
+            for ($i=0; $i < count($insumos) ; $i++) { 
+                $insumosid[] = $insumos[$i];
+            }
+            $mantencionFind->insumos()->sync( $insumosid );
+            return response()->json([
+                "tipo" => 1,
+                "title" => "Actualizado",
+                "desc" => "Mantencion Actualizada Correctamente"
+            ]);
+        }else{
+            return response()->json([
+                "tipo" => 2,
+                "title" => "Error ajax",
+                "desc" => "Solo se permiten envios de tipo ajax"
+            ]);
+        }
     }
 
     /**
@@ -137,9 +223,28 @@ class mantencionController extends Controller
      * @param  \App\Mantencion  $mantencion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mantencion $mantencion)
+    public function destroy( $mantencionid)
     {
-        //
+        $user = auth()->user()->id;
+        $mantencion = Mantencion::findOrFail($mantencionid);
+        if($mantencion->planificador_id == $user){
+            $mantencion->fases()->detach();
+            $mantencion->equipos()->detach();
+            $mantencion->trabajadores()->detach();
+            $mantencion->insumos()->detach();
+            $mantencion->delete();
+            return response()->json([
+                "tipo" => 1,
+                "title" => "Eliminado",
+                "desc" => "Mantencion Eliminada Correctamente"
+            ]);
+        }else{
+            return response()->json([
+                "tipo" => 2,
+                "title" => "Error",
+                "desc" => "Mantencion No se encuentra en los registros"
+            ]);
+        }
     }
 
 

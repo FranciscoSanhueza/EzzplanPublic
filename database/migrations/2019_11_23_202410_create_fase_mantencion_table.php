@@ -22,7 +22,7 @@ class CreateFaseMantencionTable extends Migration
             $table->unsignedBigInteger('fase_id'); // Relación con libros
             $table->foreign('fase_id')->references('id')->on('fases'); // clave foranea
 
-            $table->unsignedBigInteger('estado_id'); // Relación con libros
+            $table->unsignedBigInteger('estado_id')->default(3); // Relación con libros
             $table->foreign('estado_id')->references('id')->on('estados'); // clave foranea
 
             $table->timestamps();
