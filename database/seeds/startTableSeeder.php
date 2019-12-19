@@ -11,6 +11,10 @@ use App\Prioridad;
 use App\Cargo;
 use App\Trabajador;
 use App\Mantencion;
+use App\Fase;
+use App\Equipo;
+use App\Insumo;
+use App\Fabricante;
 
 
 class startTableSeeder extends Seeder
@@ -164,7 +168,133 @@ class startTableSeeder extends Seeder
         $cargo->user_id = 1;
         $cargo->save();
 
+        //fases
+
+        $fase = new Fase();
+        $fase->nombre = "Inicio";
+        $fase->desc = "Inicio de la Mantencion";
+        $fase->estado_id = 1;
+        $fase->user_id = 1;
+        $fase->save();
+
+        $fase = new Fase();
+        $fase->nombre = "Reemplazo de Toner";
+        $fase->desc = "Reemplazo de los toner de impresora";
+        $fase->estado_id = 1;
+        $fase->user_id = 1;
+        $fase->save();
+
+        $fase = new Fase();
+        $fase->nombre = "Acceder a impresora";
+        $fase->desc = "Acceder a la configuracion de la impresora";
+        $fase->estado_id = 1;
+        $fase->user_id = 1;
+        $fase->save();
+
+        $fase = new Fase();
+        $fase->nombre = "Desmontar llanta";
+        $fase->desc = "Proseso de desmontar neumatico antiguo ";
+        $fase->estado_id = 1;
+        $fase->user_id = 1;
+        $fase->save();
+
+        $fase = new Fase();
+        $fase->nombre = "instalar nuevo neumatico";
+        $fase->desc = "Proceso de montar nuevo neumatico";
+        $fase->estado_id = 1;
+        $fase->user_id = 1;
+        $fase->save();
+
+        $fase = new Fase();
+        $fase->nombre = "Final";
+        $fase->desc = "Final de la Mantencion";
+        $fase->estado_id = 1;
+        $fase->user_id = 1;
+        $fase->save();
+
+        //insumo
+
+        $insumo = new Insumo();
+        $insumo->nombre = "destornillador cruz";
+        $insumo->desc = "destornillador de cruz";
+        $insumo->estado_id = 1;
+        $insumo->user_id = 1;
+        $insumo->save();
+
+        $insumo = new Insumo();
+        $insumo->nombre = "Llave de rueda";
+        $insumo->desc = "llave de 4 puntas para tuercas de neumaticos";
+        $insumo->estado_id = 1;
+        $insumo->user_id = 1;
+        $insumo->save();
+
+        $insumo = new Insumo();
+        $insumo->nombre = "Desmontador de neumaticos";
+        $insumo->desc = "Metal especializado para desmontar neumaticos";
+        $insumo->estado_id = 1;
+        $insumo->user_id = 1;
+        $insumo->save();
+
+        $insumo = new Insumo();
+        $insumo->nombre = "Gata automotriz";
+        $insumo->desc = "Gata para levantar vehiculo ";
+        $insumo->estado_id = 1;
+        $insumo->user_id = 1;
+        $insumo->save();
+
+        //fabricante
+
+        $fabricante = new Fabricante();
+        $fabricante->nombre = "Asus";
+        $fabricante->desc = "Empresa de computacion y equipamento";
+        $fabricante->Origen = "EEUU";
+        $fabricante->telefono = 983803809;
+        $fabricante->Correo = "contacto@asus.cl";
+        $fabricante->Web = "";
+        $fabricante->estado_id = 1;
+        $fabricante->user_id = 1;
+        $fabricante->save();
+
+        $fabricante = new Fabricante();
+        $fabricante->nombre = "toyota";
+        $fabricante->desc = "Empresa de fabricacion de vehiculos";
+        $fabricante->Origen = "Japon";
+        $fabricante->telefono = 983803809;
+        $fabricante->Correo = "contacto@toyota.cl";
+        $fabricante->Web = "";
+        $fabricante->estado_id = 1;
+        $fabricante->user_id = 1;
+        $fabricante->save();
+
+        //Equipos
+
+        $equipo = new Equipo();
+        $equipo->nombre = "Impresora imyeccion tinta";
+        $equipo->desc = "Impresora con inyeccion tinta asus";
+        $equipo->qr = "221321asdasdaswqeqwe";
+        $equipo->tipo_id = 3;
+        $equipo->departamento_id = 1;
+        $equipo->fabricante_id = 1;
+        $equipo->fechaIngreso = "2019-10-12";
+        $equipo->estado_id = 1;
+        $equipo->user_id = 1;
+        $equipo->save();
+
+        $equipo = new Equipo();
+        $equipo->nombre = "Camioneta toyota";
+        $equipo->desc = "Camioneta toyota ss";
+        $equipo->qr = "221321asdasdjkljkljklkj";
+        $equipo->tipo_id = 4;
+        $equipo->departamento_id = 1;
+        $equipo->fabricante_id = 1;
+        $equipo->fechaIngreso = "2019-10-12";
+        $equipo->estado_id = 1;
+        $equipo->user_id = 1;
+        $equipo->save();
+
+
         //trabajador
+
 
         $trabajador = new Trabajador();
         $trabajador->run = "10146537-3";
@@ -189,7 +319,7 @@ class startTableSeeder extends Seeder
         //mantencion
 
         $mantencion = new Mantencion();
-        $mantencion->title = "Reemplazo de hoja";
+        $mantencion->title = "Reemplazo de Toner";
         $mantencion->desc = "Reemplazo de la hoja cortadora en la fila de proceso 2";
         $mantencion->start = '2019-12-10 14:00:00';
         $mantencion->end = '2019-12-11 14:00:00';
@@ -198,10 +328,14 @@ class startTableSeeder extends Seeder
         $mantencion->estado_id = 1;
         $mantencion->prioridad_id = 2;
         $mantencion->save();
+        $mantencion->fases()->attach([1,2,3,6]);
+        $mantencion->equipos()->attach(1);
+        $mantencion->trabajadores()->attach([1,2]);
+        $mantencion->insumos()->attach( 1 );
 
 
         $mantencion = new Mantencion();
-        $mantencion->title = "Reemplazo de cardan";
+        $mantencion->title = "Reemplazo de Neumaticos";
         $mantencion->desc = "Reemplazo del cardan camion 2";
         $mantencion->start = '2019-12-20 10:00:00';
         $mantencion->end = '2019-12-20 16:00:00';
@@ -210,6 +344,11 @@ class startTableSeeder extends Seeder
         $mantencion->estado_id = 1;
         $mantencion->prioridad_id = 2;
         $mantencion->save();
+        $mantencion->fases()->attach([1,4,5,6]);
+        $mantencion->equipos()->attach(2);
+        $mantencion->trabajadores()->attach(2);
+        $mantencion->insumos()->attach( [2,3,4] );
+
 
         $mantencion = new Mantencion();
         $mantencion->title = "Destruccion planta";
@@ -221,6 +360,11 @@ class startTableSeeder extends Seeder
         $mantencion->estado_id = 1;
         $mantencion->prioridad_id = 2;
         $mantencion->save();
+        $mantencion->fases()->attach([1,2,3,6]);
+        $mantencion->equipos()->attach(1);
+        $mantencion->trabajadores()->attach([1,2]);
+        $mantencion->insumos()->attach( 1);
+
 
     }
 }
