@@ -30,8 +30,9 @@ class TrabajadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $user = auth()->user()->id;
         $trabajador = Trabajador::where([
             ['user_id', '=', $user],
@@ -45,8 +46,9 @@ class TrabajadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $cargos = $this->Combocargos();
         return view('trabajador.insert', compact('cargos'));
     }
@@ -59,6 +61,7 @@ class TrabajadorController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         //validacion
         $request->validate([
             'run' => ['required','string','max:12', new ValidChileanRut(new ChileRut)],
@@ -88,8 +91,9 @@ class TrabajadorController extends Controller
      * @param  \App\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function show(Trabajador $trabajador)
+    public function show(Trabajador $trabajador, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         return abort(404);
     }
 
@@ -99,8 +103,9 @@ class TrabajadorController extends Controller
      * @param  \App\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function edit($trabajador)
+    public function edit($trabajador, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $trabajadored = Trabajador::FindOrFail($trabajador);
         if ($trabajadored->user_id == auth()->user()->id) {
             $cargos = $this->Combocargos();
@@ -119,6 +124,7 @@ class TrabajadorController extends Controller
      */
     public function update(Request $request, $trabajador)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         //validacion
         $request->validate([
             'run' => ['required','string','max:12', new ValidChileanRut(new ChileRut)],
@@ -146,8 +152,9 @@ class TrabajadorController extends Controller
      * @param  \App\Trabajador  $trabajador
      * @return \Illuminate\Http\Response
      */
-    public function destroy($trabajador)
+    public function destroy($trabajador, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $trabajadorel = Trabajador::findOrFail($trabajador);
         $trabajadorel->estado_id = 2;
         $trabajadorel->save();

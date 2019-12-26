@@ -17,8 +17,9 @@ class FabricanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $user = auth()->user()->id;
         $fabricante = Fabricante::where([
             ['user_id', '=', $user],
@@ -33,8 +34,9 @@ class FabricanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         return view('fabricante.insert');
     }
 
@@ -46,6 +48,7 @@ class FabricanteController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         //validacion
         $request->validate([
             'nombre' => 'required|string',
@@ -77,8 +80,9 @@ class FabricanteController extends Controller
      * @param  \App\Fabricante  $fabricante
      * @return \Illuminate\Http\Response
      */
-    public function show(Fabricante $fabricante)
+    public function show( $fabricante , Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         //
         return abort(404);
     }
@@ -89,8 +93,9 @@ class FabricanteController extends Controller
      * @param  \App\Fabricante  $fabricante
      * @return \Illuminate\Http\Response
      */
-    public function edit($fabricante)
+    public function edit($fabricante, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $fabricanteed = Fabricante::FindOrFail($fabricante);
         if ($fabricanteed->user_id == auth()->user()->id) {
             return view('fabricante.edit', compact('fabricanteed'));
@@ -108,6 +113,7 @@ class FabricanteController extends Controller
      */
     public function update(Request $request,  $fabricante)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         //validacion
         $request->validate([
             'nombre' => 'required|string',
@@ -137,8 +143,9 @@ class FabricanteController extends Controller
      * @param  \App\Fabricante  $fabricante
      * @return \Illuminate\Http\Response
      */
-    public function destroy($fabricante)
+    public function destroy($fabricante , Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $fabricanteel = Fabricante::findOrFail($fabricante);
         $fabricanteel->estado_id = 2;
         $fabricanteel->save();

@@ -17,8 +17,9 @@ class CargoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         $user = auth()->user()->id;
         $cargo = Cargo::where([
             ['user_id', '=', $user],
@@ -32,8 +33,9 @@ class CargoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         return view('cargo.insert');
     }
 
@@ -45,6 +47,7 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         //validacion
         $request->validate([
             'nombre' => 'required|string',
@@ -68,8 +71,9 @@ class CargoController extends Controller
      * @param  \App\Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function show(Cargo $cargo)
+    public function show( $cargo, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         return abort(404);
     }
 
@@ -79,8 +83,9 @@ class CargoController extends Controller
      * @param  \App\Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function edit($cargo)
+    public function edit($cargo, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         $cargoed = Cargo::FindOrFail($cargo);
         if ($cargoed->user_id == auth()->user()->id) {
             return view('cargo.edit', compact('cargoed'));
@@ -98,6 +103,7 @@ class CargoController extends Controller
      */
     public function update(Request $request, $cargo)
     {
+        $request->user()->controlroles(['1','3','2']);
         //validacion
         $request->validate([
             'nombre' => 'required|string',
@@ -119,8 +125,9 @@ class CargoController extends Controller
      * @param  \App\Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($cargo)
+    public function destroy($cargo, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         $cargoel = Cargo::findOrFail($cargo);
         $cargoel->estado_id = 2;
         $cargoel->save();

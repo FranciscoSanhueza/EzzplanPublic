@@ -19,8 +19,9 @@ class InsumosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $user = auth()->user()->id;
         $insumos = Insumo::where([
             ['user_id', '=', $user],
@@ -35,8 +36,9 @@ class InsumosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         return view('insumos.insert');
     }
 
@@ -48,6 +50,7 @@ class InsumosController extends Controller
      */
     public function store(StoreInsumoRequest $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         //obtenemos datos del request
         $nombre = $request->input("txt_nombre");
         $desc = $request->input("txt_descripcion");
@@ -68,8 +71,9 @@ class InsumosController extends Controller
      * @param  \App\Insumo  $insumo
      * @return \Illuminate\Http\Response
      */
-    public function show(Insumo $insumo)
+    public function show(Insumo $insumo, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         return abort(404);
     }
 
@@ -79,8 +83,9 @@ class InsumosController extends Controller
      * @param  \App\Insumo  $insumo
      * @return \Illuminate\Http\Response
      */
-    public function edit($insumo)
+    public function edit($insumo, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $insumoed = Insumo::FindOrFail($insumo);
         if ($insumoed->user_id == auth()->user()->id) {
             return view('insumos.edit', compact('insumoed'));
@@ -98,6 +103,7 @@ class InsumosController extends Controller
      */
     public function update(Request $request, $insumo)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles
         $request->validate([
             'nombre' => 'required|string',
             'descripcion' => 'required|string|',
@@ -119,8 +125,9 @@ class InsumosController extends Controller
      * @param  \App\Insumo  $insumo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($insumo)
+    public function destroy($insumo, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']); //control de roles   
         $insumoEliminar = Insumo::findOrFail($insumo);
         $insumoEliminar->estado_id = 2;
         $insumoEliminar->save();

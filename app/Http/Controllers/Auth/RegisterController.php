@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Malahierba\ChileRut\ChileRut;
 use Malahierba\ChileRut\Rules\ValidChileanRut;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -23,8 +24,9 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-    public function ReturnViewRegistro()
+    public function ReturnViewRegistro(Request $request)
     {
+        $request->user()->controlroles(['1']);
         $empresas = Empresa::all();
         return  view('auth.register', compact('empresas'));
     }

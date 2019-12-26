@@ -17,6 +17,7 @@ class UserController extends Controller
     public function index()
     {
         //
+        $request->user()->controlroles(['1']); //control de roles
     }
 
     /**
@@ -24,9 +25,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $request->user()->controlroles(['1']); //control de roles
     }
 
     /**
@@ -37,7 +39,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $request->user()->controlroles(['1']); //control de roles
     }
 
     /**
@@ -46,9 +48,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($user, Request $request)
     {
         //
+        $request->user()->controlroles(['1']); //control de roles
     }
 
     /**
@@ -57,8 +60,9 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($user)
+    public function edit($user, Request $request)
     {
+        $request->user()->controlroles(['1','3','2','4']); //control de roles
         $user = auth()->user();
         return view('auth.edit' , compact('user'));
     }
@@ -72,6 +76,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $user)
     {
+        $request->user()->controlroles(['1','3','2','4']); //control de roles
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'apellido' => ['required', 'string', 'max:255'],
@@ -92,8 +97,9 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($user, Request $request)
     {
+        $request->user()->controlroles(['1']); //control de roles
         //
     }
 }

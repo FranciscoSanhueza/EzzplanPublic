@@ -26,7 +26,7 @@ class EquipoController extends Controller
     }
 
     private function Combotipo(){
-        $tipos = Tipo::whereNotIn('id', [1, 2])->get();
+        $tipos = Tipo::whereNotIn('id', [1, 2,3,4])->get();
         return $tipos;
     }
 
@@ -46,9 +46,9 @@ class EquipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
+        $request->user()->controlroles(['1','3','2']);
         $user = auth()->user()->id;
         $equipo = Equipo::where([
             ['user_id', '=', $user],
@@ -62,8 +62,9 @@ class EquipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         $fabricantes = $this->Combofabricante();
         $departamentos = $this->Combodepartamento();
         $tipos = $this->Combotipo();
@@ -78,6 +79,7 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         //validacion
         $request->validate([
             'nombre' => 'required|string',
@@ -118,8 +120,9 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function show(Equipo $equipo)
+    public function show(Equipo $equipo , Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         return abort(404);
     }
 
@@ -129,8 +132,9 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function edit($equipo)
+    public function edit($equipo, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         $fabricantes = $this->Combofabricante();
         $departamentos = $this->Combodepartamento();
         $tipos = $this->Combotipo();
@@ -151,6 +155,7 @@ class EquipoController extends Controller
      */
     public function update(Request $request, $equipo)
     {
+        $request->user()->controlroles(['1','3','2']);
         //validacion
         $request->validate([
             'nombre' => 'required|string',
@@ -185,8 +190,9 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($equipo)
+    public function destroy($equipo, Request $request)
     {
+        $request->user()->controlroles(['1','3','2']);
         $equipoel = Equipo::findOrFail($equipo);
         $equipoel->estado_id = 2;
         $equipoel->save();

@@ -22,7 +22,7 @@ class faseController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->controlroles(['1','3']);
+        $request->user()->controlroles(['1','3']);//control de roles
         $user = auth()->user()->id;
         $fases = Fase::where([
             ['user_id', '=', $user],
@@ -36,8 +36,9 @@ class faseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->controlroles(['1','3']);
         return view('fases.insert');
     }
 
@@ -49,6 +50,7 @@ class faseController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->controlroles(['1','3']);
         //validacion
         $request->validate([
             'nombre' => 'required|string',
@@ -72,8 +74,9 @@ class faseController extends Controller
      * @param  \App\Fase  $fase
      * @return \Illuminate\Http\Response
      */
-    public function show(Fase $fase)
+    public function show($fase , Request $request)
     {
+        $request->user()->controlroles(['1','3']);
         return abort(404);
     }
 
@@ -83,8 +86,9 @@ class faseController extends Controller
      * @param  \App\Fase  $fase
      * @return \Illuminate\Http\Response
      */
-    public function edit($fase)
+    public function edit($fase , Request $request)
     {
+        $request->user()->controlroles(['1','3']);
         $faseed = Fase::FindOrFail($fase);
         if ($faseed->user_id == auth()->user()->id) {
             return view('fases.edit', compact('faseed'));
@@ -102,6 +106,7 @@ class faseController extends Controller
      */
     public function update(Request $request, $fase)
     {
+        $request->user()->controlroles(['1','3']);
         $request->validate([
             'nombre' => 'required|string',
             'desc' => 'required|string|',
@@ -121,8 +126,9 @@ class faseController extends Controller
      * @param  \App\Fase  $fase
      * @return \Illuminate\Http\Response
      */
-    public function destroy($fase)
+    public function destroy($fase , Request $request)
     {
+        $request->user()->controlroles(['1','3']);
         $faseEliminar = Fase::findOrFail($fase);
         $faseEliminar->estado_id = 2;
         $faseEliminar->save();
