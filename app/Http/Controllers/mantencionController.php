@@ -6,6 +6,7 @@ use App\Mantencion;
 use Illuminate\Http\Request;
 use App\Http\Requests\mantencionRequest;
 use Illuminate\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use App\Fase;
 use App\Trabajador;
 use App\Insumo;
@@ -68,39 +69,65 @@ class mantencionController extends Controller
         $request->user()->controlroles(['1','3','2','4']);
         $user = auth()->user();
         if($request->ajax()){
-            $mantencion = new Mantencion();
-            $mantencion->title = $request->input('title');
-            $mantencion->desc = $request->input('desc');
-            $mantencion->start = $request->input('start')." ".$request->input('startH');
-            $mantencion->end = $request->input('end')." ".$request->input('endH');
-            $mantencion->responsable_id = $request->input('id');
-            $mantencion->planificador_id = $user->id;
-            $mantencion->estado_id = 1;
-            $mantencion->prioridad_id = $request->input('prioridad');
-            $mantencion->save();
-            $cod = Mantencion::max('id');
-            $mantencionFind = Mantencion::find($cod); 
             $fases = $request->input('fases');
-            for ($i=0; $i < count($fases) ; $i++) { 
-                $mantencionFind->fases()->attach( $fases[$i], ['estado_id' => 3]);
-            }
             $equipos = $request->input('equipos');
-            for ($i=0; $i < count($equipos) ; $i++) { 
-                $mantencionFind->equipos()->attach( $equipos[$i]);
-            }
             $trabajadores = $request->input('trabajadores');
-            for ($i=0; $i < count($trabajadores) ; $i++) { 
-                $mantencionFind->trabajadores()->attach( $trabajadores[$i]);
-            }
             $insumos = $request->input('insumos');
-            for ($i=0; $i < count($insumos) ; $i++) { 
-                $mantencionFind->insumos()->attach( $insumos[$i] );
-            }
-            return response()->json([
-                "tipo" => 1,
-                "title" => "Registrado",
-                "desc" => "Ingresado Correctamente"
-            ]);
+            $start = $request->input('start')." ".$request->input('startH');
+            $end = $request->input('end')." ".$request->input('endH');
+            if($this->validateEquipo($equipos , $start , $end)){
+                if($this->validateTrabajador($trabajadores, $start , $end)){
+                    $mantencion = new Mantencion();
+                    $mantencion->title = $request->input('title');
+                    $mantencion->desc = $request->input('desc');
+                    $mantencion->start = $start;
+                    $mantencion->end = $end;
+                    $mantencion->responsable_id = $request->input('id');
+                    $mantencion->planificador_id = $user->id;
+                    $mantencion->estado_id = 1;
+                    $mantencion->prioridad_id = $request->input('prioridad');
+                    $mantencion->save();
+                    $cod = Mantencion::max('id');
+                    $mantencionFind = Mantencion::find($cod); 
+                    //Registro de fases
+                    for ($i=0; $i < count($fases) ; $i++) { 
+                        $mantencionFind->fases()->attach( $fases[$i], ['estado_id' => 3]);
+                    }
+                    //Registro de equipos
+                    for ($i=0; $i < count($equipos) ; $i++) { 
+                        $mantencionFind->equipos()->attach( $equipos[$i]);
+                    }
+                    //Registro de trabajadores
+                    for ($i=0; $i < count($trabajadores) ; $i++) { 
+                        $mantencionFind->trabajadores()->attach( $trabajadores[$i]);
+                    }
+                    //Registro de insumos
+                    for ($i=0; $i < count($insumos) ; $i++) { 
+                        $mantencionFind->insumos()->attach( $insumos[$i] );
+                    }
+                    return response()->json([
+                        "tipo" => 1,
+                        "title" => "Registrado",
+                        "desc" => "Ingresado Correctamente"
+                    ]);
+                }else{
+                    return response()->json([
+                        "tipo" => 2,
+                        "title" => "Error Trabajador ",
+                        "desc" => "Uno o varios de los Trabajadores seleccionados
+                                ya se encuetran en labores durante la fecha ".
+                                $request->input('start')." hasta ".$request->input('end')
+                    ]);
+                }
+            }else{
+                return response()->json([
+                    "tipo" => 2,
+                    "title" => "Error Equipo",
+                    "desc" => "Uno o varios de los equipos seleccionados
+                            ya se encuetran en mantencion durante la fecha ".
+                            $request->input('start')." hasta ".$request->input('end')
+                ]);
+        }        
         }else{
             return response()->json([
                 "tipo" => 2,
@@ -148,11 +175,11 @@ class mantencionController extends Controller
      * @param  \App\Mantencion  $mantencion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mantencion $mantencion, Request $request)
+    public function edit( $mantencion, Request $request)
     {
         //
         $request->user()->controlroles(['1','3','2','4']);
-
+        return $this->validateEquipo($mantencion , "2019-12-10 20:00" , "2019-12-10 21:00");
     }
 
     /**
@@ -305,4 +332,80 @@ class mantencionController extends Controller
         ->get();
         return $responsable;
     }
+
+    private function validateEquipo($EquipoV, $start , $end){
+        if(is_array($EquipoV)){
+            for ($i=0; $i < count($EquipoV) ; $i++) { 
+                $equipo = Equipo::find($EquipoV[$i]);
+                $mantenciones = $equipo->mantenciones;
+                foreach ($mantenciones as $mantencion) {
+                    if($this->check_in_range($start, $end, $mantencion->start) or $this->check_in_range($start, $end, $mantencion->end)){
+                        return false;
+                    }else {
+                        if($this->check_in_range($mantencion->start, $mantencion->end, $start) or $this->check_in_range($mantencion->start, $mantencion->end, $end)){
+                        return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }else{
+            $equipo = Equipo::find($EquipoV);
+            $mantenciones = $equipo->mantenciones;
+            foreach ($mantenciones as $mantencion) {
+                if($this->check_in_range($start, $end, $mantencion->start) or $this->check_in_range($start, $end, $mantencion->end)){
+                    return false;
+                }else {
+                    if($this->check_in_range($mantencion->start, $mantencion->end, $start) or $this->check_in_range($mantencion->start, $mantencion->end, $end)){
+                    return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
+    private function validateTrabajador($trabajadores, $start , $end){
+        if(is_array($trabajadores)){
+            for ($i=0; $i < count($trabajadores) ; $i++) { 
+                $trabajador = Trabajador::find($trabajadores[$i]);
+                $mantenciones = $trabajador->mantenciones;
+                foreach ($mantenciones as $mantencion) {
+                    if($this->check_in_range($start, $end, $mantencion->start) or $this->check_in_range($start, $end, $mantencion->end)){
+                        return false;
+                    }else {
+                        if($this->check_in_range($mantencion->start, $mantencion->end, $start) or $this->check_in_range($mantencion->start, $mantencion->end, $end)){
+                        return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }else{
+            $trabajador = Trabajador::find($trabajadores);
+            $mantenciones = $trabajador->mantenciones;
+            foreach ($mantenciones as $mantencion) {
+                if($this->check_in_range($start, $end, $mantencion->start) or $this->check_in_range($start, $end, $mantencion->end)){
+                    return false;
+                }else {
+                    if($this->check_in_range($mantencion->start, $mantencion->end, $start) or $this->check_in_range($mantencion->start, $mantencion->end, $end)){
+                    return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+    //compara si una mfecha este en un rango de fechas
+    private function check_in_range($fecha_inicio, $fecha_fin, $fecha){
+        $fecha_inicio = strtotime($fecha_inicio);
+        $fecha_fin = strtotime($fecha_fin);
+        $fecha = strtotime($fecha);
+        if(($fecha >= $fecha_inicio) && ($fecha <= $fecha_fin)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+   
 }

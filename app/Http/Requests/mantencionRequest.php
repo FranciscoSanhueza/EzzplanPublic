@@ -27,9 +27,9 @@ class mantencionRequest extends FormRequest
         return [
                 'title' => ['required','string'],
                 'desc' => ['required','string'],
-                'start' => ['required'],
+                'start' => ['required', 'date'],
                 'startH' => ['required'],
-                'end' => ['required'],
+                'end' => ['required', 'date'],
                 'endH' => ['required'],
                 'id' => ['required','numeric','exists:users,id'],
                 'prioridad' => ['required','numeric','between:1,3','exists:prioridads,id'],
@@ -41,7 +41,7 @@ class mantencionRequest extends FormRequest
                     'exists:fases,id',
                 ],
                 'equipos' => ['required',
-                    'exists:equipos,id'
+                    'exists:equipos,id',
                 ],
                 'trabajadores' => ['required',
                 'exists:trabajadors,id'
