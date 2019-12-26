@@ -26,8 +26,9 @@ class mantencionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->controlroles(['1','3','2','4']);
         $fases = $this::fases();
         $equipos = $this::equipos();
         $trabajadores = $this::trabajadores();
@@ -50,8 +51,9 @@ class mantencionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->controlroles(['1','3','2','4']);
         
     }
 
@@ -63,6 +65,7 @@ class mantencionController extends Controller
      */
     public function store(mantencionRequest $request)
     {
+        $request->user()->controlroles(['1','3','2','4']);
         $user = auth()->user();
         if($request->ajax()){
             $mantencion = new Mantencion();
@@ -114,8 +117,9 @@ class mantencionController extends Controller
      * @param  \App\Mantencion  $mantencion
      * @return \Illuminate\Http\Response
      */
-    public function show($mantencion)
+    public function show($mantencion, Request $request)
     {
+            $request->user()->controlroles(['1','3','2','4']);
             $user = auth()->user();
             $mantencionF = Mantencion::findorfail($mantencion);
             $planificador = $mantencionF->planificador;
@@ -144,9 +148,11 @@ class mantencionController extends Controller
      * @param  \App\Mantencion  $mantencion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mantencion $mantencion)
+    public function edit(Mantencion $mantencion, Request $request)
     {
         //
+        $request->user()->controlroles(['1','3','2','4']);
+
     }
 
     /**
@@ -158,6 +164,7 @@ class mantencionController extends Controller
      */
     public function update(mantencionRequest $request, $mantencionid)
     {
+        $request->user()->controlroles(['1','3','2','4']);
         $user = auth()->user();
         if($request->ajax()){
             //core
@@ -223,8 +230,9 @@ class mantencionController extends Controller
      * @param  \App\Mantencion  $mantencion
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $mantencionid)
+    public function destroy( $mantencionid, Request $request)
     {
+        $request->user()->controlroles(['1','3','2','4']);
         $user = auth()->user()->id;
         $mantencion = Mantencion::findOrFail($mantencionid);
         if($mantencion->planificador_id == $user){

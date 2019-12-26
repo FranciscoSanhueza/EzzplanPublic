@@ -166,6 +166,13 @@ class startTableSeeder extends Seeder
         $departamento->user_id = 1;
         $departamento->save();
 
+        $departamento = new Departamento();
+        $departamento->nombre = "Automotriz";
+        $departamento->desc = "Departamento encargado de las Reparaciones automotriz";
+        $departamento->estado_id = 1;
+        $departamento->user_id = 1;
+        $departamento->save();
+
         //cargo 
 
         $cargo = new Cargo();
