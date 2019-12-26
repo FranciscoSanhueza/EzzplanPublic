@@ -65,12 +65,22 @@ class startTableSeeder extends Seeder
         //tipos 
         $tipo = new Tipo();
         $tipo->nombre = "Administrador";
-        $tipo->desc = "Tiene acceso a todos los mantenedores y usuarios";
+        $tipo->desc = "Tiene acceso a todos los mantenedores y funcionalidades";
         $tipo->save();
 
         $tipo = new Tipo();
-        $tipo->nombre = "Gerente";
-        $tipo->desc = "Tiene acceso a algunos de los mantenedores y usuarios";
+        $tipo->nombre = "Administrativo";
+        $tipo->desc = "Tiene acceso a ver mantenciones y graficas";
+        $tipo->save();
+
+        $tipo = new Tipo();
+        $tipo->nombre = "Jefe de area";
+        $tipo->desc = "Tiene acceso a algunos mantenedores y planificar mantenciones";
+        $tipo->save();
+
+        $tipo = new Tipo();
+        $tipo->nombre = "Supervisor";
+        $tipo->desc = "Tiene acceso a ver las mantenciones y modificar el estado de sus fases";
         $tipo->save();
 
         $tipo = new Tipo();
@@ -118,9 +128,9 @@ class startTableSeeder extends Seeder
         $user->run = "10146527-6";
         $user->name = "Jose";
         $user->apellido = "Sanhueza";
-        $user->email = "j.sanhueza@gmail.com";
+        $user->email = "j.sanhueza@ezzplan.com";
         $user->password = Hash::make('1qazxsw2');
-        $user->tipo_id = 1;
+        $user->tipo_id = 2;
         $user->estado_id = 1;
         $user->empresa_id = 2;
         $user->save();
@@ -131,7 +141,18 @@ class startTableSeeder extends Seeder
         $user->apellido = "Molina";
         $user->email = "cmolina@ezzplan.com";
         $user->password = Hash::make('1qazxsw2');
-        $user->tipo_id = 1;
+        $user->tipo_id = 3;
+        $user->estado_id = 1;
+        $user->empresa_id = 1;
+        $user->save();
+
+        $user = new User();
+        $user->run = "1955555ee5-2";
+        $user->name = "Victor";
+        $user->apellido = "Polanco";
+        $user->email = "vpolanco@ezzplan.com";
+        $user->password = Hash::make('1qazxsw2');
+        $user->tipo_id = 4;
         $user->estado_id = 1;
         $user->empresa_id = 1;
         $user->save();

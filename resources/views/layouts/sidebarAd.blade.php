@@ -25,16 +25,6 @@
         <div class="sidebar-heading">
           Control
         </div>
-        
-
-               <!-- Nav Item - Fases -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('fases.index') }}">
-                <i class="fas fa-fw fa-toolbox"></i>
-                <span>Fases</span></a>
-            </li>
-
-
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
@@ -66,22 +56,22 @@
             </div>
           </div>
         </li>
-  
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+
+         <!-- Divider -->
+         <hr class="sidebar-divider d-none d-md-block">
   
         <!-- Heading -->
-        <div class="sidebar-heading">
-          Informacion
-        </div>
+    <div class="sidebar-heading">
+      Informacion
+    </div>
 
-           <!-- Nav Item - usuarios -->
-           <li class="nav-item">
-            <a class="nav-link" href="{{ route('register') }}">
-            <i class="fas fa-fw fa-toolbox"></i>
-            <span>Usuarios</span></a>
-        </li>
-  
+       <!-- Nav Item - usuarios -->
+       <li class="nav-item">
+        <a class="nav-link" href="#">
+        <i class="fas fa-fw fa-toolbox"></i>
+        <span>Graficas</span></a>
+    </li>
+
   
   
         <!-- Divider -->

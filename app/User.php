@@ -10,6 +10,37 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public function controlroles($tipo){
+        if($this->hasAnyRole($tipo)){
+            return true;
+        }
+        abort(401, "accion no autorizada");
+    }
+    
+    //Permite verificar mas de un rol a la vez pasando un array
+    private function hasAnyRole($tipo){
+        if(is_array($tipo)){
+            foreach ($tipo as $item) {
+                if($this->tipo()->where('id',$item)->first()){
+                    return true;
+                }
+            }
+        }else{
+            if($this->hasRole($tipo)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //revisa si el rol existe
+    public function hasRole($tipo){
+        if($this->tipo()->where('id',$tipo)->first()){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * The attributes that are mass assignable.
      *

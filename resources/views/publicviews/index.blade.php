@@ -36,7 +36,7 @@
   <nav>
     <ul class="menu" data-dynamic-navigation-element="nav">
           <li><a href="{{ route('raiz') }}" data-uri-path="{{ route('raiz') }}" target="_self" class="active">Home</a></li>
-          <li><a href="{{ route('contacto') }}" data-uri-path="{{ route('contacto') }}" target="_self">Contactamos </a></li>
+          <li><a href="{{ route('contacto') }}" data-uri-path="{{ route('contacto') }}" target="_self">Contáctanos </a></li>
           <li><a href="{{ route('login') }}" data-uri-path="{{ route('login') }}" target="_self">Acceso Clientes</a></li>
     </ul>
     

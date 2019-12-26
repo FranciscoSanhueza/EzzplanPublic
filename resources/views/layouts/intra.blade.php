@@ -39,9 +39,24 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-        @component('layouts.sidebar')
-        
-        @endcomponent
+    @switch(auth()->user()->tipo->id)
+        @case(1)
+            @component('layouts.sidebarAdmin')
+            @endcomponent
+            @break
+        @case(2)
+            @component('layouts.sidebarAd')
+            @endcomponent
+            @break
+        @case(3)
+            @component('layouts.sidebarjef')
+            @endcomponent
+            @break
+        @case(4)
+            @component('layouts.sidebarSup')
+            @endcomponent
+            @break       
+    @endswitch
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->

@@ -16,4 +16,9 @@ class Insumo extends Model
     {
         return $this->belongsTo(User::class); // Muchos a muchos
     }
+
+    //inversa
+    public function mantenciones(){ 
+        return $this->belongsToMany(Mantencion::class)->withTimestamps(); // Muchos a muchos
+    }
 }

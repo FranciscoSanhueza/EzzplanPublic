@@ -11,6 +11,7 @@ class faseController extends Controller
 
     public function __construct()
     {
+
         $this->middleware('auth');
     }
 
@@ -19,8 +20,9 @@ class faseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->controlroles(['1','3']);
         $user = auth()->user()->id;
         $fases = Fase::where([
             ['user_id', '=', $user],
