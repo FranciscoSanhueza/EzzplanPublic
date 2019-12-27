@@ -19,6 +19,8 @@ class CreateMantencionsTable extends Migration
             $table->text('desc');
             $table->dateTime('start');
             $table->dateTime('end');
+            $table->string('color');
+            $table->string('textColor');
             $table->unsignedBigInteger('responsable_id'); // Relación con tipo
             $table->foreign('responsable_id')->references('id')->on('users'); // clave foranea
 

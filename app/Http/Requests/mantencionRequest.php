@@ -31,6 +31,8 @@ class mantencionRequest extends FormRequest
                 'startH' => ['required'],
                 'end' => ['required', 'date'],
                 'endH' => ['required'],
+                'cantidad' => ['sometimes','required','numeric'],
+                'salto' => ['sometimes','required','string','numeric','between:1,3'],
                 'id' => ['required','numeric','exists:users,id'],
                 'prioridad' => ['required','numeric','between:1,3','exists:prioridads,id'],
                 'id' => Rule::exists('users')->where(function ($query) {

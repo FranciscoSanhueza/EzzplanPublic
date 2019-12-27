@@ -75,47 +75,117 @@ class mantencionController extends Controller
             $insumos = $request->input('insumos');
             $start = $request->input('start')." ".$request->input('startH');
             $end = $request->input('end')." ".$request->input('endH');
+            $prioridad = $request->input('prioridad');
             if($this->validateEquipo($equipos , $start , $end)){
                 if($this->validateTrabajador($trabajadores, $start , $end)){
-                    $mantencion = new Mantencion();
-                    $mantencion->title = $request->input('title');
-                    $mantencion->desc = $request->input('desc');
-                    $mantencion->start = $start;
-                    $mantencion->end = $end;
-                    $mantencion->responsable_id = $request->input('id');
-                    $mantencion->planificador_id = $user->id;
-                    $mantencion->estado_id = 1;
-                    $mantencion->prioridad_id = $request->input('prioridad');
-                    $mantencion->save();
-                    $cod = Mantencion::max('id');
-                    $mantencionFind = Mantencion::find($cod); 
-                    //Registro de fases
-                    for ($i=0; $i < count($fases) ; $i++) { 
-                        $mantencionFind->fases()->attach( $fases[$i], ['estado_id' => 3]);
+                    if($request->input('cantidad') == null and $request->input('salto') == null){
+                        $mantencion = new Mantencion();
+                        $mantencion->title = $request->input('title');
+                        $mantencion->desc = $request->input('desc');
+                        $mantencion->start = $start;
+                        $mantencion->end = $end;
+                        $mantencion->responsable_id = $request->input('id');
+                        $mantencion->planificador_id = $user->id;
+                        $mantencion->estado_id = 1;
+                        $mantencion->prioridad_id = $prioridad;
+                        switch ($prioridad) {
+                            case 1:
+                                $mantencion->color = "";
+                                $mantencion->textColor = "";
+                                break;
+                            case 2:
+                                $mantencion->color = "YELLOW";
+                                $mantencion->textColor = "BLACK";
+                                break;
+                            case 3:
+                                $mantencion->color = "Red";
+                                $mantencion->textColor = "";
+                                break;
+                        }
+                        $mantencion->save();
+                        $cod = Mantencion::max('id');
+                        $mantencionFind = Mantencion::find($cod); 
+                        //Registro de fases
+                        for ($i=0; $i < count($fases) ; $i++) { 
+                            $mantencionFind->fases()->attach( $fases[$i], ['estado_id' => 3]);
+                        }
+                        //Registro de equipos
+                        for ($i=0; $i < count($equipos) ; $i++) { 
+                            $mantencionFind->equipos()->attach( $equipos[$i]);
+                        }
+                        //Registro de trabajadores
+                        for ($i=0; $i < count($trabajadores) ; $i++) { 
+                            $mantencionFind->trabajadores()->attach( $trabajadores[$i]);
+                        }
+                        //Registro de insumos
+                        for ($i=0; $i < count($insumos) ; $i++) { 
+                            $mantencionFind->insumos()->attach( $insumos[$i] );
+                        }
+                        return response()->json([
+                            "tipo" => 1,
+                            "title" => "Registrado",
+                            "desc" => "Ingresado Correctamente"
+                        ]);
+                    }else{
+                        $fechasRep =  $this->getFechas($start,  $this->intervaloForm($request->input('cantidad'), $request->input('salto')) , $this->dateDiff($start , $end));
+                        //recorre las fechas
+                        
+                        for ($h=0; $h < count($fechasRep) ; $h++) { 
+                            $mantencion = new Mantencion();
+                            $mantencion->title = $request->input('title');
+                            $mantencion->desc = $request->input('desc');
+                            $mantencion->start = $fechasRep[$h]["Inicio"]->format('Y-m-d H:i:s');
+                            $mantencion->end = $fechasRep[$h]["Fin"]->format('Y-m-d H:i:s');
+                            $mantencion->responsable_id = $request->input('id');
+                            $mantencion->planificador_id = $user->id;
+                            $mantencion->estado_id = 1;
+                            $mantencion->prioridad_id = $prioridad;
+                            switch ($prioridad) {
+                                case 1:
+                                    $mantencion->color = "";
+                                    $mantencion->textColor = "";
+                                    break;
+                                case 2:
+                                    $mantencion->color = "YELLOW";
+                                    $mantencion->textColor = "BLACK";
+                                    break;
+                                case 3:
+                                    $mantencion->color = "Red";
+                                    $mantencion->textColor = "";
+                                    break;
+                            }
+                            $mantencion->save();
+                            $cod = Mantencion::max('id');
+                            $mantencionFind = Mantencion::find($cod); 
+                            //Registro de fases
+                            for ($i=0; $i < count($fases) ; $i++) { 
+                                $mantencionFind->fases()->attach( $fases[$i], ['estado_id' => 3]);
+                            }
+                            //Registro de equipos
+                            for ($i=0; $i < count($equipos) ; $i++) { 
+                                $mantencionFind->equipos()->attach( $equipos[$i]);
+                            }
+                            //Registro de trabajadores
+                            for ($i=0; $i < count($trabajadores) ; $i++) { 
+                                $mantencionFind->trabajadores()->attach( $trabajadores[$i]);
+                            }
+                            //Registro de insumos
+                            for ($i=0; $i < count($insumos) ; $i++) { 
+                                $mantencionFind->insumos()->attach( $insumos[$i] );
+                            }
+                        }
+                        return response()->json([
+                            "tipo" => 1,
+                            "title" => "Registrado",
+                            "desc" => "Ingresado Correctamente"
+                        ]);
                     }
-                    //Registro de equipos
-                    for ($i=0; $i < count($equipos) ; $i++) { 
-                        $mantencionFind->equipos()->attach( $equipos[$i]);
-                    }
-                    //Registro de trabajadores
-                    for ($i=0; $i < count($trabajadores) ; $i++) { 
-                        $mantencionFind->trabajadores()->attach( $trabajadores[$i]);
-                    }
-                    //Registro de insumos
-                    for ($i=0; $i < count($insumos) ; $i++) { 
-                        $mantencionFind->insumos()->attach( $insumos[$i] );
-                    }
-                    return response()->json([
-                        "tipo" => 1,
-                        "title" => "Registrado",
-                        "desc" => "Ingresado Correctamente"
-                    ]);
                 }else{
                     return response()->json([
                         "tipo" => 2,
-                        "title" => "Error Trabajador ",
+                        "title" => "Error Trabajador",
                         "desc" => "Uno o varios de los Trabajadores seleccionados
-                                ya se encuetran en labores durante la fecha ".
+                                ya se encuetran en mantencion durante la fecha ".
                                 $request->input('start')." hasta ".$request->input('end')
                     ]);
                 }
@@ -406,6 +476,52 @@ class mantencionController extends Controller
         } else {
             return false;
         }
+    }
+
+
+    private function getFechas($inicio, $intervalo , $duracion)
+    {
+        $_inicio=new \DateTime($inicio);
+        $fin = new \DateTime($inicio);
+        $_fin  = $fin->modify('+360 day'); 
+
+        $_intervalo = new \DateInterval($intervalo);
+        $fechas = new \DatePeriod($_inicio, $_intervalo ,$_fin);
+
+        $ret = array();
+        foreach ($fechas as $fecha)
+            {
+                $inicioEvento = $fecha;
+                $finEvento= clone $fecha;
+                $finEvento->modify($duracion);
+                if ($finEvento<=$fin){
+                    $ret[]=array('Inicio' => $inicioEvento,
+                            'Fin' => $finEvento);
+                }
+            }
+        return $ret;
+    }
+
+    private function dateDiff($start , $end){
+        $inicio = new \DateTime($start);
+        $final = new \DateTime($end);
+        $diff = $inicio->diff($final);
+        return "+".$diff->d." day ".$diff->h." hours";
+    }
+
+    private function intervaloForm($cantida, $salto){
+        switch ($salto) {
+            case 1:
+                $intervalo = "P".(360/$cantida)."D";
+                break;
+            case 2:
+                $intervalo = "P".(30/$cantida)."D";
+                break;
+            case 3:
+                $intervalo = "P".(7/$cantida)."D";
+                break;
+        }
+        return $intervalo;
     }
    
 }

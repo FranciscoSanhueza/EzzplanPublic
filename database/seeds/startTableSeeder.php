@@ -354,7 +354,9 @@ class startTableSeeder extends Seeder
         $mantencion->responsable_id = 1;
         $mantencion->planificador_id = 1;
         $mantencion->estado_id = 1;
-        $mantencion->prioridad_id = 2;
+        $mantencion->prioridad_id = 1;
+        $mantencion->color = "";
+        $mantencion->textColor = "";
         $mantencion->save();
         $mantencion->fases()->attach([1,2,3,6]);
         $mantencion->equipos()->attach(1);
@@ -371,6 +373,8 @@ class startTableSeeder extends Seeder
         $mantencion->planificador_id = 1;
         $mantencion->estado_id = 1;
         $mantencion->prioridad_id = 2;
+        $mantencion->color = "YELLOW";
+        $mantencion->textColor = "BLACK";
         $mantencion->save();
         $mantencion->fases()->attach([1,4,5,6]);
         $mantencion->equipos()->attach(2);
@@ -386,7 +390,9 @@ class startTableSeeder extends Seeder
         $mantencion->responsable_id = 1;
         $mantencion->planificador_id = 1;
         $mantencion->estado_id = 1;
-        $mantencion->prioridad_id = 2;
+        $mantencion->prioridad_id = 3;
+        $mantencion->color = "Red";
+        $mantencion->textColor = "";
         $mantencion->save();
         $mantencion->fases()->attach([1,2,3,6]);
         $mantencion->equipos()->attach(1);

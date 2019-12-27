@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="autoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -99,7 +99,29 @@
 
 
                             <div class="form-group row">
-
+                                <label for="cantidad" class="col-md-2 col-form-label text-md-right">Ciclo</label>
+                                <div class="col-md-9">
+                                    <input type="cantidad" class="form-control @error('cantidad') is-invalid @enderror"
+                                        id="cantidad" name="cantidad" required>
+                                    @error('cantidad')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <label for="cicloT" class="col-md-2 col-form-label text-md-right">Vez al</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" id="cicloT">
+                                        <option value="{{ __('1') }}">{{ __('Año') }}</option>
+                                        <option value="{{ __('2') }}">{{ __('Mes') }}</option>
+                                        <option value="{{ __('3') }}">{{ __('Semana') }}</option>
+                                    </select>
+                                    @error('cicloT')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div> 
                             </div>
 
                             <div class="form-group row">
@@ -124,36 +146,8 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            <div class="form-group row" id="optionAuto">
-                                <label for="cantidad" class="col-md-2 col-form-label text-md-right">Ciclo</label>
-                                <div class="col-md-4">
-                                    <input type="number" class="form-control @error('cantidad') is-invalid @enderror"
-                                        id="cantidad" name="cantidad" required>
-                                    @error('cantidad')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                <label for="cicloT" class="col-md-1 col-form-label text-md-right">Por</label>
-                                <div class="col-md-4">
-                                    <select class="form-control" id="cicloT">
-                                        <option value="{{ __('1') }}">{{ __('Año') }}</option>
-                                        <option value="{{ __('2') }}">{{ __('Mes') }}</option>
-                                        <option value="{{ __('3') }}">{{ __('Semana') }}</option>
-                                    </select>
-                                    @error('cicloT')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div> 
-                            </div>
                         </div>
                     </div>
-
-                    
 
                     <div class="card">
                         <div class="card-header">

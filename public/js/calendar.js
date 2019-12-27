@@ -1,5 +1,5 @@
 //Propiedades de calendario
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     cargarCalendario();
 });
 
@@ -14,9 +14,9 @@ function cargarCalendario() {
             center: "title",
             right: "dayGridMonth,timeGridWeek,timeGridDay"
         },
-        dateClick: function(info) {
+        dateClick: function (info) {
             if (compararFechaAct(info.date)) {
-                cargarModalI(info);
+                alertaInsert(info);
             } else {
                 toastM(
                     2,
@@ -26,7 +26,7 @@ function cargarCalendario() {
             }
         },
         events: "/man",
-        eventClick: function(info) {
+        eventClick: function (info) {
             resetcamposSelect("previusFasesE", "nextFasesE");
             resetcamposSelect("previusEquiposE", "nextEquiposE");
             resetcamposSelect("previusTrabajadoresE", "nextTrabajadoresE");
@@ -45,16 +45,16 @@ function vermas(id) {
         url: route,
         type: "GET",
         dataType: "json",
-        success: function(msj) {
+        success: function (msj) {
             cargarModalExtendData(msj.core);
         },
-        error: function(error) {
+        error: function (error) {
             console.log(error);
         }
     });
 }
 
-$("#btn_insert").click(function() {
+$("#btn_insert").click(function () {
     var datos = dataFormInsert();
     var route = window.location;
     var token = $("#_token").val();
@@ -67,7 +67,7 @@ $("#btn_insert").click(function() {
         dataType: "json",
         data: datos,
 
-        success: function(msj) {
+        success: function (msj) {
             toastM(msj.tipo, msj.desc, msj.title);
             $("#insertModal").modal("toggle");
             $("#calendarioWeb").empty();
@@ -78,7 +78,7 @@ $("#btn_insert").click(function() {
             resetcamposSelect("previusInsumos", "nextInsumos");
             limpiar();
         },
-        error: function(error) {
+        error: function (error) {
             arrError = error.responseJSON.errors;
             for (var i in arrError) {
                 toastM(2, arrError[i], "Error al Ingresar");
@@ -87,7 +87,7 @@ $("#btn_insert").click(function() {
     });
 });
 
-$("#edit_btn").click(function(e) {
+$("#edit_btn").click(function (e) {
     var datos = dataFormEdit();
     var route = window.location + "/" + $("#_id").val();
     var token = $("#_tokenE").val();
@@ -100,7 +100,7 @@ $("#edit_btn").click(function(e) {
         dataType: "json",
         data: datos,
 
-        success: function(msj) {
+        success: function (msj) {
             toastM(msj.tipo, msj.desc, msj.title);
             $("#editModal").modal("toggle");
             $("#calendarioWeb").empty();
@@ -111,7 +111,7 @@ $("#edit_btn").click(function(e) {
             resetcamposSelect("previusInsumosE", "nextInsumosE");
             limpiar();
         },
-        error: function(error) {
+        error: function (error) {
             arrError = error.responseJSON.errors;
             for (var i in arrError) {
                 toastM(2, arrError[i], "Error al Editar");
@@ -120,7 +120,7 @@ $("#edit_btn").click(function(e) {
     });
 });
 
-$("#delete_btn").click(function() {
+$("#delete_btn").click(function () {
     var datos = dataFormInsert();
     var route = window.location + "/" + $("#_id").val();
     var token = $("#_token").val();
@@ -133,7 +133,7 @@ $("#delete_btn").click(function() {
         dataType: "json",
         data: datos,
 
-        success: function(msj) {
+        success: function (msj) {
             toastM(1, msj.desc, msj.title);
             $("#editModal").modal("toggle");
             $("#calendarioWeb").empty();
@@ -144,7 +144,7 @@ $("#delete_btn").click(function() {
             resetcamposSelect("previusInsumosE", "nextInsumosE");
             limpiar();
         },
-        error: function(error) {
+        error: function (error) {
             arrError = error.responseJSON.errors;
             for (var i in arrError) {
                 toastM(2, arrError[i], "Error al Eliminar");
@@ -202,24 +202,48 @@ function selecall() {
 
 function dataFormInsert() {
     selecall();
+    var cantidad;
+    var salto;
     var fases = $("#nextFases").val();
     var equipos = $("#nextEquipos").val();
     var trabajadores = $("#nextTrabajadores").val();
     var insumos = $("#nextInsumos").val();
-    datos = {
-        title: $("#title").val(),
-        desc: $("#desc").val(),
-        start: $("#start").val(),
-        startH: $("#startH").val(),
-        end: $("#end").val(),
-        endH: $("#endH").val(),
-        fases: fases,
-        equipos: equipos,
-        trabajadores: trabajadores,
-        insumos: insumos,
-        prioridad: $("#prioridad").val(),
-        id: $("#responsable").val()
-    };
+    if ($(optionAuto).is(":visible")) {
+        cantidad = $("#cantidad").val();
+        salto = $("#cicloT").val();
+        datos = {
+            title: $("#title").val(),
+            desc: $("#desc").val(),
+            start: $("#start").val(),
+            startH: $("#startH").val(),
+            end: $("#end").val(),
+            endH: $("#endH").val(),
+            salto: salto,
+            cantidad: cantidad,
+            fases: fases,
+            equipos: equipos,
+            trabajadores: trabajadores,
+            insumos: insumos,
+            prioridad: $("#prioridad").val(),
+            id: $("#responsable").val()
+        };
+    } else {
+        datos = {
+            title: $("#title").val(),
+            desc: $("#desc").val(),
+            start: $("#start").val(),
+            startH: $("#startH").val(),
+            end: $("#end").val(),
+            endH: $("#endH").val(),
+            fases: fases,
+            equipos: equipos,
+            trabajadores: trabajadores,
+            insumos: insumos,
+            prioridad: $("#prioridad").val(),
+            id: $("#responsable").val()
+        };
+    }
+
     return datos;
 }
 
@@ -230,7 +254,7 @@ function dataFormEdit() {
     var trabajadores = $("#nextTrabajadoresE").val();
     var insumos = $("#nextInsumosE").val();
     datos = {
-        id: $("#_id").val(),
+        _id: $("#_id").val(),
         title: $("#titleE").val(),
         desc: $("#descE").val(),
         start: $("#startE").val(),
@@ -426,82 +450,116 @@ function toastM(tipo, desc, title) {
     }
 }
 
-document.getElementById("previusFases").addEventListener("change", function() {
+function alertaInsert(info) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: '<strong>Tipo de mantencion a ingresar</strong>',
+        html: "<strong>Selecciona el tipo de mantencion a ingresar:</strong>" +
+            "<label>Unica: Solo se realizara una vez o sera planificada manualmente\n</label>" +
+            "<label>Periodica: Se definira un intervalo de tiempo para ser programada automaticamente (Por un año)</label>",
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: '<div class="col-md-2"><label>Unica</label></div>',
+        cancelButtonText: '<div class="col-md-2"><label>Periodica</label></div>',
+        reverseButtons: true,
+        icon: "question"
+    }).then((result) => {
+        if (result.value) {
+            $('#optionAuto').hide();
+            cargarModalI(info);
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            $('#optionAuto').show();
+            cargarModalI(info);
+        }
+    });
+}
+
+document.getElementById("previusFases").addEventListener("change", function () {
     pasoSelect("previusFases", "nextFases");
 });
 
-document.getElementById("nextFases").addEventListener("change", function() {
+document.getElementById("nextFases").addEventListener("change", function () {
     pasoSelect("nextFases", "previusFases");
 });
 
 document
     .getElementById("previusEquipos")
-    .addEventListener("change", function() {
+    .addEventListener("change", function () {
         pasoSelect("previusEquipos", "nextEquipos");
     });
 
-document.getElementById("nextEquipos").addEventListener("change", function() {
+document.getElementById("nextEquipos").addEventListener("change", function () {
     pasoSelect("nextEquipos", "previusEquipos");
 });
 
 document
     .getElementById("previusTrabajadores")
-    .addEventListener("change", function() {
+    .addEventListener("change", function () {
         pasoSelect("previusTrabajadores", "nextTrabajadores");
     });
 
 document
     .getElementById("nextTrabajadores")
-    .addEventListener("change", function() {
+    .addEventListener("change", function () {
         pasoSelect("nextTrabajadores", "previusTrabajadores");
     });
 
 document
     .getElementById("previusInsumos")
-    .addEventListener("change", function() {
+    .addEventListener("change", function () {
         pasoSelect("previusInsumos", "nextInsumos");
     });
 
-document.getElementById("nextInsumos").addEventListener("change", function() {
+document.getElementById("nextInsumos").addEventListener("change", function () {
     pasoSelect("nextInsumos", "previusInsumos");
 });
 
-document.getElementById("previusFasesE").addEventListener("change", function() {
+document.getElementById("previusFasesE").addEventListener("change", function () {
     pasoSelect("previusFasesE", "nextFasesE");
 });
 
-document.getElementById("nextFasesE").addEventListener("change", function() {
+document.getElementById("nextFasesE").addEventListener("change", function () {
     pasoSelect("nextFasesE", "previusFasesE");
 });
 
 document
     .getElementById("previusEquiposE")
-    .addEventListener("change", function() {
+    .addEventListener("change", function () {
         pasoSelect("previusEquiposE", "nextEquiposE");
     });
 
-document.getElementById("nextEquiposE").addEventListener("change", function() {
+document.getElementById("nextEquiposE").addEventListener("change", function () {
     pasoSelect("nextEquiposE", "previusEquiposE");
 });
 
 document
     .getElementById("previusTrabajadoresE")
-    .addEventListener("change", function() {
+    .addEventListener("change", function () {
         pasoSelect("previusTrabajadoresE", "nextTrabajadoresE");
     });
 
 document
     .getElementById("nextTrabajadoresE")
-    .addEventListener("change", function() {
+    .addEventListener("change", function () {
         pasoSelect("nextTrabajadoresE", "previusTrabajadoresE");
     });
 
 document
     .getElementById("previusInsumosE")
-    .addEventListener("change", function() {
+    .addEventListener("change", function () {
         pasoSelect("previusInsumosE", "nextInsumosE");
     });
 
-document.getElementById("nextInsumosE").addEventListener("change", function() {
+document.getElementById("nextInsumosE").addEventListener("change", function () {
     pasoSelect("nextInsumosE", "previusInsumosE");
 });
