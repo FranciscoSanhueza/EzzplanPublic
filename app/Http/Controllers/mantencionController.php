@@ -40,10 +40,18 @@ class mantencionController extends Controller
 
     public function calendario(){
         $user = auth()->user()->id;
-        $mantenciones = Mantencion::where([
-            ['planificador_id', '=', $user],
-            ['estado_id', '=', 1],
-        ])->get();
+        if(auth()->user()->tipo_id == 4){
+            $mantenciones = Mantencion::where([
+                ['responsable_id', '=', $user],
+                ['estado_id', '=', 1],
+            ])->get();
+        }else{
+            $mantenciones = Mantencion::where([
+                ['planificador_id', '=', $user],
+                ['estado_id', '=', 1],
+            ])->get();
+        }
+        
         return $mantenciones;
     }
 
@@ -398,6 +406,7 @@ class mantencionController extends Controller
         $responsable = User::where([
             ['empresa_id', '=', $user],
             ['estado_id', '=', 1],
+            ['tipo_id', '=', 4],
         ])->orderBy('name')
         ->get();
         return $responsable;
