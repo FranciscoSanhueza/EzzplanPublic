@@ -4,12 +4,12 @@ Prototipo de Aplicación web que permite la planificación de mantenciones para 
 Este software esta realizado utilizando el Framework de PHP Laravel.
 Algunos envíos de información son mediante la utilización de JavaScript y se utilizan ciertas librearas que depende de este lenguaje.
 Se utiliza:
-	-Bootstrap 
-	-Chart js
-	-Data Tables
-	-Fontawesome
-	-Full Calendar
-	-JQuery
+	- Bootstrap 
+	- Chart js
+	- Data Tables
+	- Fontawesome
+	- Full Calendar
+	- JQuery
     
 ## Distribución
 Base de datos creada utilizando el sistema de migraciones de Laravel que se encuentra en la ruta database/migrations.
